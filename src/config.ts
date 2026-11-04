@@ -23,4 +23,5 @@ export const DEFAULT_COLOR_SURFACE = 'oklch(1 0 0)';
 export const DEFAULT_COLOR_CONTENT = 'oklch(0.2 0 0)';
 export const DEFAULT_COLOR_FORMAT = 'oklch';
 export const DEFAULT_COLOR_FALLBACK = 'interpolate';
+export const INTERPOLATE_PRIMARY_GAP = 0.35;
 export const DEFAULT_COLOR_PALETTES = ['light', 'dark'];

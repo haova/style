@@ -19,16 +19,17 @@ export function parseColor(
   if (!match) return fallback;
 
   const [, l, lPercent, c, h, alpha, alphaPercent] = match;
+
+  let alphaValue = 1;
+  if (alpha !== undefined) {
+    alphaValue = alphaPercent ? Number(alpha) / 100 : Number(alpha);
+  }
+
   return {
     l: lPercent ? Number(l) / 100 : Number(l),
     c: Number(c),
     h: ((Number(h) % 360) + 360) % 360,
-    alpha:
-      alpha === undefined
-        ? 1
-        : alphaPercent
-          ? Number(alpha) / 100
-          : Number(alpha),
+    alpha: alphaValue,
   };
 }
 

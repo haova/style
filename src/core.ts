@@ -5,12 +5,14 @@ import {
   DEFAULT_COLOR_PALETTES,
   DEFAULT_COLOR_PRIMARY,
   DEFAULT_COLOR_CONTENT,
+  INTERPOLATE_PRIMARY_GAP,
   type HaoVAOptions,
   type ResolvedOptions,
 } from './config';
 import { parseColor, formatColor } from './color';
 
 export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
+  // default colors
   const colorFormat = input.color?.format ?? DEFAULT_COLOR_FORMAT;
   const colorFallback = input.color?.fallback ?? DEFAULT_COLOR_FALLBACK;
   const primaryColor = parseColor(
@@ -23,6 +25,7 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
     input.color?.content ?? DEFAULT_COLOR_CONTENT,
   );
 
+  // interpolate colors
   const isSurfaceLighter = surfaceColor.l >= contentColor.l;
   const lighterColor = isSurfaceLighter ? surfaceColor : contentColor;
   const darkerColor = isSurfaceLighter ? contentColor : surfaceColor;
@@ -33,11 +36,12 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
     ...Object.keys(input.color?.palettes ?? {}),
   ]);
 
+  // palletes
   const palettes: ResolvedOptions['color']['palettes'] = {};
   for (const name of paletteNames) {
     const palette = input.color?.palettes?.[name];
-    const palettePrimaryColor = parseColor(palette?.primary, primaryColor);
 
+    // default
     let defaultSurfaceColor = surfaceColor;
     let defaultContentColor = contentColor;
 
@@ -49,6 +53,7 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
       defaultContentColor = lighterColor;
     }
 
+    // override
     const paletteSurfaceColor = parseColor(
       palette?.surface,
       defaultSurfaceColor,
@@ -56,6 +61,31 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
     const paletteContentColor = parseColor(
       palette?.content,
       defaultContentColor,
+    );
+
+    // default primary
+    let defaultPrimaryColor = primaryColor;
+
+    if (isInterpolate && (name === 'light' || name === 'dark')) {
+      const gap = INTERPOLATE_PRIMARY_GAP;
+      let lightness: number;
+
+      if (paletteSurfaceColor.l > primaryColor.l) {
+        lightness = Math.min(primaryColor.l, paletteSurfaceColor.l - gap);
+      } else {
+        lightness = Math.max(primaryColor.l, paletteSurfaceColor.l + gap);
+      }
+
+      defaultPrimaryColor = {
+        ...primaryColor,
+        l: Math.min(1, Math.max(0, lightness)),
+      };
+    }
+
+    // override primary
+    const palettePrimaryColor = parseColor(
+      palette?.primary,
+      defaultPrimaryColor,
     );
 
     palettes[name] = {
