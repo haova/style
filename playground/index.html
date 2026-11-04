@@ -5,50 +5,253 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HaoVA Style</title>
   </head>
-  <body>
-    <header class="bg-content text-surface p-4">
+  <body class="m-0">
+    <header class="gravity-between bg-content text-surface p-6">
       <strong>HaoVA Style</strong>
-      <p>Standard by default. Limitless by design.</p>
-      <button id="toggle-scheme" class="bg-primary text-surface p-2">
-        Toggle Scheme
-      </button>
-      <button id="default-scheme" class="bg-surface text-content p-2">
-        Default Scheme
-      </button>
+      <div>
+        <button id="toggle-scheme" class="bg-primary text-surface p-2 m-1">
+          Toggle Scheme
+        </button>
+        <button id="default-scheme" class="bg-surface text-content p-2 m-1">
+          Default Scheme
+        </button>
+      </div>
     </header>
 
-    <section class="bg-primary text-surface p-8 m-4">
-      <h1>Style that follows the standard, until you don't.</h1>
-      <p>
-        One brand color is enough to get a consistent page. Every default can
-        still be overridden when you want to break the rules.
-      </p>
-      <button class="bg-surface text-primary p-2">Get started</button>
+    <section class="gravity-center bg-primary text-surface p-12">
+      <div>
+        <h1>Style that follows the standard, until you don't.</h1>
+        <p>
+          One brand color is enough to get a consistent page. Every default can
+          still be overridden when you want to break the rules.
+        </p>
+        <button class="bg-surface text-primary p-3 m-1">Get started</button>
+      </div>
     </section>
 
-    <section class="p-4">
+    <section class="p-8">
+      <h2>Three ideas</h2>
+      <div class="gravity-around">
+        <article class="bg-content text-surface p-6 m-2">
+          <h3>Standard</h3>
+          <p>Sensible defaults from one brand color.</p>
+        </article>
+        <article class="bg-content text-surface p-6 m-2">
+          <h3>Derived</h3>
+          <p>Light and dark palettes follow your colors.</p>
+        </article>
+        <article class="bg-content text-surface p-6 m-2">
+          <h3>Limitless</h3>
+          <p>Override any value whenever you need.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="bg-content text-surface p-8">
       <h2>Color</h2>
       <p>Light and dark palettes derived from your colors.</p>
-      <div class="bg-content p-4">
-        <div class="bg-primary text-surface p-3 m-1">primary</div>
-        <div class="bg-surface text-content p-3 m-1">surface</div>
+      <div class="gravity-around">
+        <div class="bg-primary text-surface p-6 m-2">primary</div>
+        <div class="bg-surface text-content p-6 m-2">surface</div>
       </div>
-      <div class="bg-content text-surface p-3 m-1">content</div>
     </section>
 
-    <section class="p-4">
+    <section class="p-8">
       <h2>Spacing</h2>
       <p>Every gap is a multiple of one base unit.</p>
-      <div class="bg-primary text-surface p-1 m-1">p-1</div>
-      <div class="bg-primary text-surface p-2 m-1">p-2</div>
-      <div class="bg-primary text-surface p-4 m-1">p-4</div>
-      <div class="bg-primary text-surface p-6 m-1">p-6</div>
+      <div class="gravity-bottom-left">
+        <div class="bg-primary text-surface p-1 m-1">p-1</div>
+        <div class="bg-primary text-surface p-2 m-1">p-2</div>
+        <div class="bg-primary text-surface p-4 m-1">p-4</div>
+        <div class="bg-primary text-surface p-6 m-1">p-6</div>
+        <div class="bg-primary text-surface p-8 m-1">p-8</div>
+      </div>
     </section>
 
-    <section class="p-4">
-      <h2>Typography</h2>
-      <p>Sizes scale from one root size.</p>
+    <section class="bg-content text-surface p-8">
+      <h2>Gravity</h2>
+      <p>Where the content goes inside its box.</p>
+      <div class="gravity-around">
+        <div class="m-2">
+          <p><code>gravity-left</code></p>
+          <div class="gravity-left bg-surface text-content p-2 h-48 w-48">
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-center</code></p>
+          <div class="gravity-center bg-surface text-content p-2 h-48 w-48">
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-right</code></p>
+          <div class="gravity-right bg-surface text-content p-2 h-48 w-48">
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+      </div>
+      <div class="gravity-around">
+        <div class="m-2">
+          <p><code>gravity-between</code></p>
+          <div class="gravity-between bg-surface text-content p-2 h-48 w-48">
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-around</code></p>
+          <div class="gravity-around bg-surface text-content p-2 h-48 w-48">
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-evenly</code></p>
+          <div class="gravity-evenly bg-surface text-content p-2 h-48 w-48">
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+      </div>
+      <div class="gravity-around">
+        <div class="m-2">
+          <p><code>gravity-top-left</code></p>
+          <div class="gravity-top-left bg-surface text-content p-2 h-48 w-48">
+            <span class="bg-primary text-surface p-1 m-1">1</span
+            ><span class="bg-primary text-surface p-4 m-1">2</span
+            ><span class="bg-primary text-surface p-8 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-middle</code></p>
+          <div class="gravity-middle bg-surface text-content p-2 h-48 w-48">
+            <span class="bg-primary text-surface p-1 m-1">1</span
+            ><span class="bg-primary text-surface p-4 m-1">2</span
+            ><span class="bg-primary text-surface p-8 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-bottom-right</code></p>
+          <div
+            class="gravity-bottom-right bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-1 m-1">1</span
+            ><span class="bg-primary text-surface p-4 m-1">2</span
+            ><span class="bg-primary text-surface p-8 m-1">3</span>
+          </div>
+        </div>
+      </div>
+      <div class="gravity-around">
+        <div class="m-2">
+          <p><code>gravity-between-left</code></p>
+          <div
+            class="gravity-between-left bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-around-center</code></p>
+          <div
+            class="gravity-around-center bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-evenly-right</code></p>
+          <div
+            class="gravity-evenly-right bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+      </div>
+      <div class="gravity-around">
+        <div class="m-2">
+          <p><code>gravity-stretch-left</code></p>
+          <div
+            class="gravity-stretch-left bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-stretch-center</code></p>
+          <div
+            class="gravity-stretch-center bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-stretch-between</code></p>
+          <div
+            class="gravity-stretch-between bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+      </div>
+      <div class="gravity-around">
+        <div class="m-2">
+          <p><code>gravity-top-stretch</code></p>
+          <div
+            class="gravity-top-stretch bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-middle-stretch</code></p>
+          <div
+            class="gravity-middle-stretch bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+        <div class="m-2">
+          <p><code>gravity-between-stretch</code></p>
+          <div
+            class="gravity-between-stretch bg-surface text-content p-2 h-48 w-48"
+          >
+            <span class="bg-primary text-surface p-2 m-1">1</span
+            ><span class="bg-primary text-surface p-2 m-1">2</span
+            ><span class="bg-primary text-surface p-2 m-1">3</span>
+          </div>
+        </div>
+      </div>
     </section>
+
+    <footer class="gravity-center p-6">
+      <small>HaoVA Style playground</small>
+    </footer>
 
     <script type="module" src="./main.ts"></script>
   </body>
