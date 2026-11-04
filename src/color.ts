@@ -1,0 +1,38 @@
+export interface Color {
+  l: number; // 0..1
+  c: number; // 0..0.4
+  h: number; // 0..360
+  alpha: number; // 0..1
+}
+
+const NUM = '[+-]?(?:\\d+\\.?\\d*|\\.\\d+)';
+const OKLCH_PATTERN = new RegExp(
+  `^oklch\\(\\s*(${NUM})(%?)\\s+(${NUM})\\s+(${NUM})(?:deg)?(?:\\s*/\\s*(${NUM})(%?))?\\s*\\)$`,
+  'i',
+);
+
+export function parseColor(input: string): Color {
+  const match = OKLCH_PATTERN.exec(input.trim());
+  if (!match) return { l: 0, c: 0, h: 0, alpha: 1 };
+
+  const [, l, lPercent, c, h, alpha, alphaPercent] = match;
+  return {
+    l: lPercent ? Number(l) / 100 : Number(l),
+    c: Number(c),
+    h: ((Number(h) % 360) + 360) % 360,
+    alpha:
+      alpha === undefined
+        ? 1
+        : alphaPercent
+          ? Number(alpha) / 100
+          : Number(alpha),
+  };
+}
+
+export function formatColor(input: Color, format: 'oklch' = 'oklch'): string {
+  const round = (n: number) => Number(n.toFixed(4));
+  const body = `${round(input.l)} ${round(input.c)} ${round(input.h)}`;
+  return input.alpha === 1
+    ? `oklch(${body})`
+    : `oklch(${body} / ${round(input.alpha)})`;
+}
