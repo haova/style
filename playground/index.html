@@ -1,10 +1,55 @@
 <!doctype html>
 <html lang="en-US" dir="ltr">
-  <head> </head>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HaoVA Style</title>
+  </head>
   <body>
-    <h1 class="text-primary">Hello, World</h1>
-    <button id="toggle-scheme">Toggle Scheme</button>
-    <button id="default-scheme">Defaut Scheme</button>
+    <header class="bg-content text-surface p-4">
+      <strong>HaoVA Style</strong>
+      <p>Standard by default. Limitless by design.</p>
+      <button id="toggle-scheme" class="bg-primary text-surface p-2">
+        Toggle Scheme
+      </button>
+      <button id="default-scheme" class="bg-surface text-content p-2">
+        Default Scheme
+      </button>
+    </header>
+
+    <section class="bg-primary text-surface p-8 m-4">
+      <h1>Style that follows the standard, until you don't.</h1>
+      <p>
+        One brand color is enough to get a consistent page. Every default can
+        still be overridden when you want to break the rules.
+      </p>
+      <button class="bg-surface text-primary p-2">Get started</button>
+    </section>
+
+    <section class="p-4">
+      <h2>Color</h2>
+      <p>Light and dark palettes derived from your colors.</p>
+      <div class="bg-content p-4">
+        <div class="bg-primary text-surface p-3 m-1">primary</div>
+        <div class="bg-surface text-content p-3 m-1">surface</div>
+      </div>
+      <div class="bg-content text-surface p-3 m-1">content</div>
+    </section>
+
+    <section class="p-4">
+      <h2>Spacing</h2>
+      <p>Every gap is a multiple of one base unit.</p>
+      <div class="bg-primary text-surface p-1 m-1">p-1</div>
+      <div class="bg-primary text-surface p-2 m-1">p-2</div>
+      <div class="bg-primary text-surface p-4 m-1">p-4</div>
+      <div class="bg-primary text-surface p-6 m-1">p-6</div>
+    </section>
+
+    <section class="p-4">
+      <h2>Typography</h2>
+      <p>Sizes scale from one root size.</p>
+    </section>
+
     <script type="module" src="./main.ts"></script>
   </body>
 </html>

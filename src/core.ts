@@ -1,4 +1,7 @@
 import {
+  DEFAULT_UNIT,
+  DEFAULT_SPACING_BASE,
+  DEFAULT_TYPOGRAPHY_SIZE,
   DEFAULT_COLOR_SURFACE,
   DEFAULT_COLOR_FORMAT,
   DEFAULT_COLOR_FALLBACK,
@@ -10,8 +13,20 @@ import {
   type ResolvedOptions,
 } from './config';
 import { parseColor, formatColor } from './color';
+import { parseUnit, formatUnit } from './unit';
 
 export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
+  // default units
+  const unit = input.unit ?? DEFAULT_UNIT;
+  const spacingBase = parseUnit(
+    input.spacing?.base ?? DEFAULT_SPACING_BASE,
+    unit,
+  );
+  const typographySize = parseUnit(
+    input.typography?.size ?? DEFAULT_TYPOGRAPHY_SIZE,
+    unit,
+  );
+
   // default colors
   const colorFormat = input.color?.format ?? DEFAULT_COLOR_FORMAT;
   const colorFallback = input.color?.fallback ?? DEFAULT_COLOR_FALLBACK;
@@ -96,6 +111,13 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
   }
 
   return {
+    unit,
+    spacing: {
+      base: formatUnit(spacingBase),
+    },
+    typography: {
+      size: formatUnit(typographySize),
+    },
     color: {
       format: colorFormat,
       fallback: colorFallback,

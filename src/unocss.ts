@@ -1,40 +1,87 @@
 // Adapter for UnoCSS
 
 import { createHaoVAStyle } from './core';
-import type { HaoVAOptions } from './config';
+import type { HaoVAOptions, ResolvedOptions } from './config';
+
+type Rule =
+  | [string, Record<string, string>]
+  | [RegExp, (match: RegExpMatchArray) => Record<string, string>];
+
+type Palette = ResolvedOptions['color']['palettes'][string];
+
+const COLOR_NAMES = ['primary', 'surface', 'content'];
+
+const SIDES: Record<string, string[]> = {
+  '': [''],
+  t: ['-top'],
+  r: ['-right'],
+  b: ['-bottom'],
+  l: ['-left'],
+  x: ['-left', '-right'],
+  y: ['-top', '-bottom'],
+};
+
+function getColorVariables(palette: Palette): string {
+  return (
+    `--color-primary:${palette.primary};` +
+    `--color-surface:${palette.surface};` +
+    `--color-content:${palette.content};`
+  );
+}
+
+function getColorRules(): Rule[] {
+  const rules: Rule[] = [];
+
+  for (const name of COLOR_NAMES) {
+    rules.push([`text-${name}`, { color: `var(--color-${name})` }]);
+    rules.push([`bg-${name}`, { 'background-color': `var(--color-${name})` }]);
+  }
+
+  return rules;
+}
+
+function getSpacingRule(prefix: string, property: string): Rule {
+  const pattern = new RegExp(`^${prefix}([trblxy]?)-(\\d+(?:\\.\\d+)?)$`);
+
+  return [
+    pattern,
+    ([, side, times]) => {
+      const declarations: Record<string, string> = {};
+
+      for (const suffix of SIDES[side]) {
+        declarations[property + suffix] =
+          `calc(var(--spacing-base) * ${times})`;
+      }
+
+      return declarations;
+    },
+  ];
+}
 
 export function presetHaoVA(options: HaoVAOptions = {}) {
-  const { color } = createHaoVAStyle(options);
+  const { spacing, typography, color } = createHaoVAStyle(options);
 
-  const lightVariables =
-    `--color-primary:${color.palettes.light.primary};` +
-    `--color-surface:${color.palettes.light.surface};` +
-    `--color-content:${color.palettes.light.content};`;
-  const darkVariables =
-    `--color-primary:${color.palettes.dark.primary};` +
-    `--color-surface:${color.palettes.dark.surface};` +
-    `--color-content:${color.palettes.dark.content};`;
-
-  const rules = ['primary', 'surface', 'content'].flatMap(
-    (name): [string, Record<string, string>][] => [
-      [`text-${name}`, { color: `var(--color-${name})` }],
-      [`bg-${name}`, { 'background-color': `var(--color-${name})` }],
-    ],
-  );
+  const lightVariables = getColorVariables(color.palettes.light);
+  const darkVariables = getColorVariables(color.palettes.dark);
 
   return {
     name: 'haova-style',
     preflights: [
       {
         getCSS: () =>
+          `:root{--spacing-base:${spacing.base};--typography-size:${typography.size}}` +
           `:root{color-scheme:light dark;${lightVariables}}` +
           `@media (prefers-color-scheme:dark){:root:not([data-theme]){${darkVariables}}}` +
           `:root[data-theme='light']{color-scheme:light;${lightVariables}}` +
           `:root[data-theme='dark']{color-scheme:dark;${darkVariables}}` +
-          'body{background-color:var(--color-surface);color:var(--color-content)}',
+          'body{background-color:var(--color-surface);color:var(--color-content);font-size:var(--typography-size)}',
       },
     ],
-    rules,
+    rules: [
+      ...getColorRules(),
+      getSpacingRule('p', 'padding'),
+      getSpacingRule('m', 'margin'),
+    ],
     variants: [],
   };
 }
