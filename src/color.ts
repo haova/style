@@ -11,9 +11,12 @@ const OKLCH_PATTERN = new RegExp(
   'i',
 );
 
-export function parseColor(input: string): Color {
-  const match = OKLCH_PATTERN.exec(input.trim());
-  if (!match) return { l: 0, c: 0, h: 0, alpha: 1 };
+export function parseColor(
+  input: string | undefined,
+  fallback: Color = { l: 0, c: 0, h: 0, alpha: 1 },
+): Color {
+  const match = input === undefined ? null : OKLCH_PATTERN.exec(input.trim());
+  if (!match) return fallback;
 
   const [, l, lPercent, c, h, alpha, alphaPercent] = match;
   return {

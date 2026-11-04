@@ -3,50 +3,38 @@
 import { createHaoVAStyle } from './core';
 import type { HaoVAOptions } from './config';
 
-type Variables = Record<string, string>;
-
-function toDeclarations(variables: Variables, indent: string): string {
-  return Object.entries(variables)
-    .map(([name, value]) => `${indent}${name}: ${value};\n`)
-    .join('');
-}
-
 export function presetHaoVA(options: HaoVAOptions = {}) {
   const { color } = createHaoVAStyle(options);
 
-  const lightVariables: Variables = {
-    '--color-primary': color.primary,
-  };
-  const darkVariables: Variables = {
-    '--color-primary': color.dark.primary,
-  };
+  const lightVariables =
+    `--color-primary:${color.palettes.light.primary};` +
+    `--color-surface:${color.palettes.light.surface};` +
+    `--color-content:${color.palettes.light.content};`;
+  const darkVariables =
+    `--color-primary:${color.palettes.dark.primary};` +
+    `--color-surface:${color.palettes.dark.surface};` +
+    `--color-content:${color.palettes.dark.content};`;
+
+  const rules = ['primary', 'surface', 'content'].flatMap(
+    (name): [string, Record<string, string>][] => [
+      [`text-${name}`, { color: `var(--color-${name})` }],
+      [`bg-${name}`, { 'background-color': `var(--color-${name})` }],
+    ],
+  );
 
   return {
     name: 'haova-style',
     preflights: [
       {
-        // prettier-ignore
         getCSS: () =>
-          ':root {\n' +
-          '  color-scheme: light dark;\n' +
-          toDeclarations(lightVariables, '  ') +
-          '}\n' +
-          '@media (prefers-color-scheme: dark) {\n' +
-          '  :root:not([data-theme]) {\n' +
-          toDeclarations(darkVariables, '    ') +
-          '  }\n' +
-          '}\n' +
-          ":root[data-theme='light'] {\n" +
-          '  color-scheme: light;\n' +
-          toDeclarations(lightVariables, '  ') +
-          '}\n' +
-          ":root[data-theme='dark'] {\n" +
-          '  color-scheme: dark;\n' +
-          toDeclarations(darkVariables, '  ') +
-          '}',
+          `:root{color-scheme:light dark;${lightVariables}}` +
+          `@media (prefers-color-scheme:dark){:root:not([data-theme]){${darkVariables}}}` +
+          `:root[data-theme='light']{color-scheme:light;${lightVariables}}` +
+          `:root[data-theme='dark']{color-scheme:dark;${darkVariables}}` +
+          'body{background-color:var(--color-surface);color:var(--color-content)}',
       },
     ],
-    rules: [['text-primary', { color: 'var(--color-primary)' }]],
+    rules,
     variants: [],
   };
 }
