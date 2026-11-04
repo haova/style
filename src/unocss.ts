@@ -49,6 +49,23 @@ function getColorVariables(palette: Palette): string {
   );
 }
 
+function getFamilyVariables(families: Record<string, string>): string {
+  let variables = '';
+
+  for (const [name, family] of Object.entries(families)) {
+    variables += `--typography-family-${name}:${family};`;
+  }
+
+  return variables;
+}
+
+function getFamilyRules(families: Record<string, string>): Rule[] {
+  return Object.keys(families).map((name) => [
+    `font-${name}`,
+    { 'font-family': `var(--typography-family-${name})` },
+  ]);
+}
+
 function getColorRules(): Rule[] {
   const rules: Rule[] = [];
 
@@ -130,6 +147,7 @@ function getSizeRule(prefix: string, property: string): Rule {
 export function presetHaoVA(options: HaoVAOptions = {}) {
   const { spacing, typography, color } = createHaoVAStyle(options);
 
+  const familyVariables = getFamilyVariables(typography.families);
   const lightVariables = getColorVariables(color.palettes.light);
   const darkVariables = getColorVariables(color.palettes.dark);
 
@@ -138,16 +156,17 @@ export function presetHaoVA(options: HaoVAOptions = {}) {
     preflights: [
       {
         getCSS: () =>
-          `:root{--spacing-base:${spacing.base};--typography-size:${typography.size}}` +
+          `:root{--spacing-base:${spacing.base};--typography-size:${typography.size};--typography-family:${typography.family};${familyVariables}}` +
           `:root{color-scheme:light dark;${lightVariables}}` +
           `@media (prefers-color-scheme:dark){:root:not([data-theme]){${darkVariables}}}` +
           `:root[data-theme='light']{color-scheme:light;${lightVariables}}` +
           `:root[data-theme='dark']{color-scheme:dark;${darkVariables}}` +
-          'body{background-color:var(--color-surface);color:var(--color-content);font-size:var(--typography-size)}',
+          'body{background-color:var(--color-surface);color:var(--color-content);font-size:var(--typography-size);font-family:var(--typography-family)}',
       },
     ],
     rules: [
       ...getColorRules(),
+      ...getFamilyRules(typography.families),
       ...DISPLAY_RULES,
       getGravityRule(),
       getSpacingRule('p', 'padding'),

@@ -2,6 +2,9 @@ import {
   DEFAULT_UNIT,
   DEFAULT_SPACING_BASE,
   DEFAULT_TYPOGRAPHY_SIZE,
+  DEFAULT_TYPOGRAPHY_FAMILY,
+  DEFAULT_TYPOGRAPHY_FAMILIES,
+  DEFAULT_TYPOGRAPHY_MONO,
   DEFAULT_COLOR_SURFACE,
   DEFAULT_COLOR_FORMAT,
   DEFAULT_COLOR_FALLBACK,
@@ -14,6 +17,7 @@ import {
 } from './config';
 import { parseColor, formatColor } from './color';
 import { parseUnit, formatUnit } from './unit';
+import { parseFont, formatFont } from './font';
 
 export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
   // default units
@@ -22,10 +26,32 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
     input.spacing?.base ?? DEFAULT_SPACING_BASE,
     unit,
   );
+
+  // typography
   const typographySize = parseUnit(
     input.typography?.size ?? DEFAULT_TYPOGRAPHY_SIZE,
     unit,
   );
+  const typographyFamily = parseFont(
+    input.typography?.family,
+    DEFAULT_TYPOGRAPHY_FAMILY,
+  );
+
+  const familyNames = new Set([
+    ...DEFAULT_TYPOGRAPHY_FAMILIES,
+    ...Object.keys(input.typography?.families ?? {}),
+  ]);
+
+  // typo families
+  const families: ResolvedOptions['typography']['families'] = {};
+  for (const name of familyNames) {
+    const defaultFamily =
+      name === 'mono' ? DEFAULT_TYPOGRAPHY_MONO : typographyFamily;
+
+    families[name] = formatFont(
+      parseFont(input.typography?.families?.[name], defaultFamily),
+    );
+  }
 
   // default colors
   const colorFormat = input.color?.format ?? DEFAULT_COLOR_FORMAT;
@@ -117,6 +143,8 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
     },
     typography: {
       size: formatUnit(typographySize),
+      family: formatFont(typographyFamily),
+      families,
     },
     color: {
       format: colorFormat,

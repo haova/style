@@ -1,8 +1,10 @@
-type DeepRequired<T> = T extends object
-  ? { [K in keyof T]-?: DeepRequired<NonNullable<T[K]>> }
-  : T extends number
-    ? string
-    : T;
+type DeepRequired<T> = T extends string[]
+  ? string
+  : T extends object
+    ? { [K in keyof T]-?: DeepRequired<NonNullable<T[K]>> }
+    : T extends number
+      ? string
+      : T;
 
 export interface ColorPalette {
   primary?: string;
@@ -22,6 +24,8 @@ export interface HaoVAOptions {
   };
   typography?: {
     size?: number | string;
+    family?: string | string[];
+    families?: Record<string, string | string[]>;
   };
 }
 
@@ -30,6 +34,9 @@ export type ResolvedOptions = DeepRequired<HaoVAOptions>;
 export const DEFAULT_UNIT = 'rem';
 export const DEFAULT_SPACING_BASE = '0.25rem';
 export const DEFAULT_TYPOGRAPHY_SIZE = '1rem';
+export const DEFAULT_TYPOGRAPHY_FAMILY = ['system-ui', 'sans-serif'];
+export const DEFAULT_TYPOGRAPHY_FAMILIES = ['heading', 'mono'];
+export const DEFAULT_TYPOGRAPHY_MONO = ['ui-monospace', 'monospace'];
 export const DEFAULT_COLOR_PRIMARY = 'oklch(0.72 0.1 190)';
 export const DEFAULT_COLOR_SURFACE = 'oklch(1 0 0)';
 export const DEFAULT_COLOR_CONTENT = 'oklch(0.2 0 0)';
