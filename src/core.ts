@@ -1,6 +1,10 @@
 import {
   DEFAULT_UNIT,
   DEFAULT_SPACING_BASE,
+  DEFAULT_LINE_UNIT,
+  DEFAULT_LINE_WIDTH,
+  DEFAULT_LINE_STYLE,
+  LINE_STYLES,
   DEFAULT_SPACING_GAPS,
   SPACING_GAP_RATIO,
   DEFAULT_TYPOGRAPHY_SIZE,
@@ -56,6 +60,16 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
     input.spacing?.base ?? DEFAULT_SPACING_BASE,
     unit,
   );
+
+  // line
+  const lineWidth = parseUnit(
+    input.line?.width,
+    DEFAULT_LINE_UNIT,
+    parseUnit(DEFAULT_LINE_WIDTH, DEFAULT_LINE_UNIT),
+  );
+  const lineStyle =
+    LINE_STYLES.find((style) => style === input.line?.style) ??
+    DEFAULT_LINE_STYLE;
 
   // spacing gaps
   const gapNames = new Set([
@@ -145,6 +159,9 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
     input.color?.content ?? DEFAULT_COLOR_CONTENT,
   );
 
+  // line color
+  const lineColor = parseColor(input.line?.color, contentColor);
+
   // interpolate colors
   const isSurfaceLighter = surfaceColor.l >= contentColor.l;
   const lighterColor = isSurfaceLighter ? surfaceColor : contentColor;
@@ -217,6 +234,11 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
 
   return {
     unit,
+    line: {
+      width: formatUnit(lineWidth),
+      style: lineStyle,
+      color: formatColor(lineColor, colorFormat),
+    },
     spacing: {
       base: formatUnit(spacingBase),
       gaps,

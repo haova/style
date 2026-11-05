@@ -41,6 +41,11 @@ export interface HaoVAOptions {
     fallback?: 'default' | 'interpolate';
     palettes?: Record<string, ColorPalette>;
   };
+  line?: {
+    width?: number | string;
+    style?: LineStyle;
+    color?: string;
+  };
   spacing?: {
     base?: number | string;
     gaps?: Record<string, SpacingGap>;
@@ -64,6 +69,11 @@ export type ResolvedOptions = Omit<ResolvedBase, 'spacing'> & {
 };
 
 export const DEFAULT_UNIT = 'rem';
+export const DEFAULT_LINE_UNIT = 'px';
+export const DEFAULT_LINE_WIDTH = '1px';
+export type LineStyle = 'solid' | 'dashed' | 'dotted';
+export const DEFAULT_LINE_STYLE: LineStyle = 'solid';
+export const LINE_STYLES: LineStyle[] = ['solid', 'dashed', 'dotted'];
 export const DEFAULT_SPACING_BASE = '0.25rem';
 export const DEFAULT_SPACING_GAPS = ['tight', 'normal', 'loose'];
 export const SPACING_GAP_RATIO = 2;

@@ -120,6 +120,31 @@ function getTypeRules(): Rule[] {
   ]);
 }
 
+function getBorderRule(): Rule {
+  const pattern = /^border(?:-([trblxy]))?(?:-(\d+(?:\.\d+)?))?$/;
+
+  return [
+    pattern,
+    ([, side = '', times = '1']) => {
+      const declarations: Record<string, string> = {};
+      const value = `calc(var(--line-width) * ${times}) var(--line-style) var(--line-color)`;
+
+      for (const suffix of SIDES[side]) {
+        declarations[`border${suffix}`] = value;
+      }
+
+      return declarations;
+    },
+  ];
+}
+
+function getBorderColorRules(): Rule[] {
+  return COLOR_NAMES.map((name) => [
+    `border-${name}`,
+    { 'border-color': `var(--color-${name})` },
+  ]);
+}
+
 function getGravityRule(): Rule {
   const pattern =
     /^gravity-(?:(top|middle|bottom|between|around|evenly|stretch)-(left|center|right|between|around|evenly|stretch)|(top|middle|bottom|stretch)|(left|center|right|between|around|evenly))$/;
@@ -264,7 +289,7 @@ function getSizeRule(prefix: string, property: string): Rule {
 }
 
 export function presetHaoVA(options: HaoVAOptions = {}) {
-  const { spacing, typography, color } = createHaoVAStyle(options);
+  const { line, spacing, typography, color } = createHaoVAStyle(options);
 
   const familyVariables = getFamilyVariables(typography.families);
   const lightVariables = getColorVariables(color.palettes.light);
@@ -275,7 +300,7 @@ export function presetHaoVA(options: HaoVAOptions = {}) {
     preflights: [
       {
         getCSS: () =>
-          `:root{--spacing-base:${spacing.base};--typography-size:${typography.size};--typography-family:${typography.family};${familyVariables}}` +
+          `:root{--line-width:${line.width};--line-style:${line.style};--line-color:${line.color};--spacing-base:${spacing.base};--typography-size:${typography.size};--typography-family:${typography.family};${familyVariables}}` +
           `:root{color-scheme:light dark;${lightVariables}}` +
           `@media (prefers-color-scheme:dark){:root:not([data-theme]){${darkVariables}}}` +
           `:root[data-theme='light']{color-scheme:light;${lightVariables}}` +
@@ -289,6 +314,8 @@ export function presetHaoVA(options: HaoVAOptions = {}) {
       ...getTypeRules(),
       ...DISPLAY_RULES,
       getGravityRule(),
+      getBorderRule(),
+      ...getBorderColorRules(),
       ...getRadiusGapRules(spacing.gaps),
       getRadiusRule(),
       ...getGapRules(spacing.gaps, 'p', 'padding'),
