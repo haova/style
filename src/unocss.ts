@@ -21,6 +21,33 @@ const SIDES: Record<string, string[]> = {
   y: ['-top', '-bottom'],
 };
 
+const SIDE_KEYS: Record<string, 't' | 'r' | 'b' | 'l'> = {
+  '-top': 't',
+  '-right': 'r',
+  '-bottom': 'b',
+  '-left': 'l',
+};
+
+const RADIUS_CORNERS: Record<string, string> = {
+  tl: 'border-top-left-radius',
+  tr: 'border-top-right-radius',
+  br: 'border-bottom-right-radius',
+  bl: 'border-bottom-left-radius',
+};
+
+const RADIUS_TARGETS: Record<string, string[]> = {
+  t: ['tl', 'tr'],
+  r: ['tr', 'br'],
+  b: ['br', 'bl'],
+  l: ['tl', 'bl'],
+  tl: ['tl'],
+  tr: ['tr'],
+  br: ['br'],
+  bl: ['bl'],
+};
+
+const RADIUS_FULL = '9999px';
+
 const DISPLAY_RULES: Rule[] = [
   ['inline', { display: 'inline' }],
   ['block', { display: 'block' }],
@@ -37,6 +64,15 @@ const GRAVITY_VALUES: Record<string, string> = {
   around: 'space-around',
   evenly: 'space-evenly',
   stretch: 'stretch',
+};
+
+const TYPE_SIZES: Record<string, number> = {
+  caption: 0.875,
+  body: 1,
+  item: 1.25,
+  section: 1.5,
+  title: 2,
+  display: 3,
 };
 
 const GRAVITY_DISTRIBUTIONS = ['between', 'around', 'evenly'];
@@ -75,6 +111,13 @@ function getColorRules(): Rule[] {
   }
 
   return rules;
+}
+
+function getTypeRules(): Rule[] {
+  return Object.entries(TYPE_SIZES).map(([name, times]) => [
+    `type-${name}`,
+    { 'font-size': `calc(var(--typography-size) * ${times})` },
+  ]);
 }
 
 function getGravityRule(): Rule {
@@ -138,6 +181,82 @@ function getSpacingRule(prefix: string, property: string): Rule {
   ];
 }
 
+function getGapRules(
+  gaps: ResolvedOptions['spacing']['gaps'],
+  prefix: string,
+  property: string,
+): Rule[] {
+  const rules: Rule[] = [];
+
+  for (const [name, gap] of Object.entries(gaps)) {
+    for (const [side, suffixes] of Object.entries(SIDES)) {
+      const declarations: Record<string, string> = {};
+
+      const sideSuffixes = side === '' ? Object.keys(SIDE_KEYS) : suffixes;
+
+      for (const suffix of sideSuffixes) {
+        declarations[property + suffix] = getSpacingValue(gap[SIDE_KEYS[suffix]]);
+      }
+
+      rules.push([`${prefix}${side}-${name}`, declarations]);
+    }
+  }
+
+  return rules;
+}
+
+function getRadiusRule(): Rule {
+  const pattern = /^radius(?:-(t|r|b|l|tl|tr|br|bl))?-(\d+(?:\.\d+)?|full)$/;
+
+  return [
+    pattern,
+    ([, target, value]) => {
+      const radius = value === 'full' ? RADIUS_FULL : getSpacingValue(value);
+
+      if (target === undefined) return { 'border-radius': radius };
+
+      const declarations: Record<string, string> = {};
+
+      for (const corner of RADIUS_TARGETS[target]) {
+        declarations[RADIUS_CORNERS[corner]] = radius;
+      }
+
+      return declarations;
+    },
+  ];
+}
+
+function getRadiusGapRules(gaps: ResolvedOptions['spacing']['gaps']): Rule[] {
+  const rules: Rule[] = [];
+  const targets: Record<string, string[]> = {
+    '': Object.keys(RADIUS_CORNERS),
+    ...RADIUS_TARGETS,
+  };
+
+  for (const [name, gap] of Object.entries(gaps)) {
+    for (const [target, corners] of Object.entries(targets)) {
+      const declarations: Record<string, string> = {};
+
+      for (const corner of corners) {
+        const [vertical, horizontal] = corner;
+        const times = Math.max(
+          Number(gap[vertical as 't' | 'b']),
+          Number(gap[horizontal as 'l' | 'r']),
+        );
+
+        declarations[RADIUS_CORNERS[corner]] = getSpacingValue(String(times));
+      }
+
+      rules.push([
+        target === '' ? `radius-${name}` : `radius-${target}-${name}`,
+        declarations,
+      ]);
+    }
+  }
+
+  return rules;
+}
+
 function getSizeRule(prefix: string, property: string): Rule {
   const pattern = new RegExp(`^${prefix}-(\\d+(?:\\.\\d+)?)$`);
 
@@ -167,8 +286,13 @@ export function presetHaoVA(options: HaoVAOptions = {}) {
     rules: [
       ...getColorRules(),
       ...getFamilyRules(typography.families),
+      ...getTypeRules(),
       ...DISPLAY_RULES,
       getGravityRule(),
+      ...getRadiusGapRules(spacing.gaps),
+      getRadiusRule(),
+      ...getGapRules(spacing.gaps, 'p', 'padding'),
+      ...getGapRules(spacing.gaps, 'm', 'margin'),
       getSpacingRule('p', 'padding'),
       getSpacingRule('m', 'margin'),
       getSizeRule('w', 'width'),

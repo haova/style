@@ -12,273 +12,287 @@
     />
   </head>
   <body class="m-0">
-    <header class="gravity-between p-6">
-      <strong class="font-heading">HaoVA Style</strong>
+    <header class="gravity-between px-loose py-normal">
+      <strong class="type-item font-heading">HaoVA Style</strong>
       <div>
-        <button id="toggle-scheme" class="bg-primary text-surface p-2 m-1">
-          Toggle Scheme
+        <button
+          id="toggle-scheme"
+          class="bg-primary text-surface px-normal py-tight m-tight radius-full"
+        >
+          Toggle scheme
         </button>
-        <button id="default-scheme" class="bg-content text-surface p-2 m-1">
-          Default Scheme
+        <button
+          id="default-scheme"
+          class="bg-content text-surface px-normal py-tight m-tight radius-full"
+        >
+          Default scheme
         </button>
       </div>
     </header>
 
-    <section class="gravity-center bg-primary text-surface p-12">
-      <div>
-        <h1 class="font-heading">Style that follows the standard, until you don't.</h1>
-        <p>
-          One brand color is enough to get a consistent page. Every default can
-          still be overridden when you want to break the rules.
-        </p>
-        <button class="bg-surface text-primary p-3 m-1">Get started</button>
+    <section class="px-loose">
+      <div
+        class="gravity-center bg-primary text-surface px-loose py-16 radius-loose"
+      >
+        <div class="w-160">
+          <p class="type-caption font-mono">A configurable styling framework</p>
+          <h1 class="type-display font-heading">
+            Style that follows the standard, until you don't.
+          </h1>
+          <p class="type-item">
+            One brand color is enough for a consistent page. Every default can
+            still be overridden when you want to break the rules.
+          </p>
+          <button
+            class="bg-surface text-primary px-loose py-normal m-tight radius-full"
+          >
+            Get started
+          </button>
+        </div>
       </div>
     </section>
 
-    <section class="p-8">
-      <h2 class="font-heading">Three ideas</h2>
+    <section class="p-loose">
+      <h2 class="type-section font-heading">Three ideas</h2>
       <div class="gravity-around">
-        <article class="bg-content text-surface p-6 m-2">
-          <h3 class="font-heading">Standard</h3>
+        <article class="bg-content text-surface p-loose m-normal radius-loose w-72">
+          <h3 class="type-item font-heading">Standard</h3>
           <p>Sensible defaults from one brand color.</p>
         </article>
-        <article class="bg-content text-surface p-6 m-2">
-          <h3 class="font-heading">Derived</h3>
+        <article class="bg-content text-surface p-loose m-normal radius-loose w-72">
+          <h3 class="type-item font-heading">Derived</h3>
           <p>Light and dark palettes follow your colors.</p>
         </article>
-        <article class="bg-content text-surface p-6 m-2">
-          <h3 class="font-heading">Limitless</h3>
+        <article class="bg-content text-surface p-loose m-normal radius-loose w-72">
+          <h3 class="type-item font-heading">Limitless</h3>
           <p>Override any value whenever you need.</p>
         </article>
       </div>
     </section>
 
-    <section class="p-8">
-      <h2 class="font-heading">Color</h2>
+    <section class="p-loose">
+      <h2 class="type-section font-heading">Color</h2>
       <p>Light and dark palettes derived from your colors.</p>
       <div class="gravity-around">
-        <div class="bg-primary text-surface p-6 m-2">primary</div>
-        <div class="bg-content text-surface p-6 m-2">content</div>
-        <div class="bg-content p-2 m-2">
-          <div class="bg-surface text-content p-6">surface</div>
+        <div class="bg-primary text-surface p-loose m-normal radius-normal w-48">
+          primary
+        </div>
+        <div class="bg-content text-surface p-loose m-normal radius-normal w-48">
+          content
+        </div>
+        <div class="bg-content p-tight m-normal radius-normal w-48">
+          <div class="bg-surface text-content p-loose radius-tight">surface</div>
         </div>
       </div>
     </section>
 
-    <section class="p-8">
-      <h2 class="font-heading">Spacing</h2>
-      <p>Every gap is a multiple of one base unit.</p>
+    <section class="p-loose">
+      <h2 class="type-section font-heading">Spacing</h2>
+      <p>Every space is a multiple of one base unit, or a named gap.</p>
+
+      <p class="type-caption font-mono">p-1 · p-2 · p-4 · p-6 · p-8</p>
       <div class="gravity-bottom-left">
-        <div class="bg-primary text-surface p-1 m-1">p-1</div>
-        <div class="bg-primary text-surface p-2 m-1">p-2</div>
-        <div class="bg-primary text-surface p-4 m-1">p-4</div>
-        <div class="bg-primary text-surface p-6 m-1">p-6</div>
-        <div class="bg-primary text-surface p-8 m-1">p-8</div>
+        <div class="bg-primary text-surface p-1 m-tight radius-tight">1</div>
+        <div class="bg-primary text-surface p-2 m-tight radius-tight">2</div>
+        <div class="bg-primary text-surface p-4 m-tight radius-tight">4</div>
+        <div class="bg-primary text-surface p-6 m-tight radius-tight">6</div>
+        <div class="bg-primary text-surface p-8 m-tight radius-tight">8</div>
+      </div>
+
+      <p class="type-caption font-mono">p-tight · p-normal · p-loose</p>
+      <div class="gravity-bottom-left">
+        <div class="bg-primary text-surface p-tight m-tight radius-tight">
+          tight
+        </div>
+        <div class="bg-primary text-surface p-normal m-tight radius-tight">
+          normal
+        </div>
+        <div class="bg-primary text-surface p-loose m-tight radius-tight">
+          loose
+        </div>
+      </div>
+
+      <p class="type-caption font-mono">px-loose py-tight · pl-loose pt-normal</p>
+      <div class="gravity-bottom-left">
+        <div class="bg-primary text-surface px-loose py-tight m-tight radius-tight">
+          x loose, y tight
+        </div>
+        <div class="bg-primary text-surface pl-loose pt-normal m-tight radius-tight">
+          left loose, top normal
+        </div>
       </div>
     </section>
 
-    <section class="bg-primary text-surface p-8">
-      <h2 class="font-heading">Typography</h2>
-      <p>One base size, and named families for each purpose.</p>
+    <section class="p-loose">
+      <h2 class="type-section font-heading">Radius</h2>
+      <p>Corner radius follows the same gaps.</p>
+
+      <p class="type-caption font-mono">
+        radius-tight · normal · loose · full
+      </p>
       <div class="gravity-around">
-        <div class="bg-content text-surface p-6 m-2 w-64">
-          <p><code class="font-mono">font-heading</code></p>
-          <h3 class="font-heading">The quick brown fox</h3>
+        <div class="bg-primary text-surface p-loose m-normal radius-tight">
+          tight
         </div>
-        <div class="bg-content text-surface p-6 m-2 w-64">
-          <p><code class="font-mono">default family</code></p>
-          <h3>The quick brown fox</h3>
+        <div class="bg-primary text-surface p-loose m-normal radius-normal">
+          normal
         </div>
-        <div class="bg-content text-surface p-6 m-2 w-64">
-          <p><code class="font-mono">font-mono</code></p>
-          <h3 class="font-mono">The quick brown fox</h3>
+        <div class="bg-primary text-surface p-loose m-normal radius-loose">
+          loose
+        </div>
+        <div class="bg-primary text-surface p-loose m-normal radius-full">
+          full
+        </div>
+      </div>
+
+      <p class="type-caption font-mono">
+        radius-t · r · b · l · tl · br — loose
+      </p>
+      <div class="gravity-around">
+        <div class="bg-content text-surface p-loose m-normal radius-t-loose">t</div>
+        <div class="bg-content text-surface p-loose m-normal radius-r-loose">r</div>
+        <div class="bg-content text-surface p-loose m-normal radius-b-loose">b</div>
+        <div class="bg-content text-surface p-loose m-normal radius-l-loose">l</div>
+        <div class="bg-content text-surface p-loose m-normal radius-tl-loose">tl</div>
+        <div class="bg-content text-surface p-loose m-normal radius-br-loose">br</div>
+      </div>
+    </section>
+
+    <section class="px-loose">
+      <div class="bg-primary text-surface p-loose radius-loose">
+        <h2 class="type-section font-heading">Typography</h2>
+        <p>One base size, and named families for each purpose.</p>
+
+        <div class="gravity-around">
+          <div class="bg-content text-surface p-loose m-normal radius-normal w-64">
+            <p class="type-caption font-mono">font-heading</p>
+            <h3 class="type-item font-heading">The quick brown fox</h3>
+          </div>
+          <div class="bg-content text-surface p-loose m-normal radius-normal w-64">
+            <p class="type-caption font-mono">default family</p>
+            <h3 class="type-item">The quick brown fox</h3>
+          </div>
+          <div class="bg-content text-surface p-loose m-normal radius-normal w-64">
+            <p class="type-caption font-mono">font-mono</p>
+            <h3 class="type-item font-mono">The quick brown fox</h3>
+          </div>
+        </div>
+
+        <div class="p-normal">
+          <p class="type-caption">type-caption</p>
+          <p class="type-body">type-body</p>
+          <p class="type-item font-heading">type-item</p>
+          <p class="type-section font-heading">type-section</p>
+          <p class="type-title font-heading">type-title</p>
+          <p class="type-display font-heading">type-display</p>
         </div>
       </div>
     </section>
 
-    <section class="p-8">
-      <h2 class="font-heading">Gravity</h2>
+    <section class="p-loose">
+      <h2 class="type-section font-heading">Gravity</h2>
       <p>Where the content goes inside its box.</p>
       <div class="gravity-around">
-        <div class="m-2">
-          <p><code class="font-mono">gravity-left</code></p>
-          <div class="gravity-left bg-content text-surface p-2 h-48 w-48">
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-top-left</p>
+          <div class="gravity-top-left bg-content radius-normal h-32 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
           </div>
         </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-center</code></p>
-          <div class="gravity-center bg-content text-surface p-2 h-48 w-48">
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-middle</p>
+          <div class="gravity-middle bg-content radius-normal h-32 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
           </div>
         </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-right</code></p>
-          <div class="gravity-right bg-content text-surface p-2 h-48 w-48">
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-bottom-right</p>
+          <div class="gravity-bottom-right bg-content radius-normal h-32 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
           </div>
         </div>
       </div>
       <div class="gravity-around">
-        <div class="m-2">
-          <p><code class="font-mono">gravity-between</code></p>
-          <div class="gravity-between bg-content text-surface p-2 h-48 w-48">
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-between</p>
+          <div class="gravity-between bg-content radius-normal h-32 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">3</span>
           </div>
         </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-around</code></p>
-          <div class="gravity-around bg-content text-surface p-2 h-48 w-48">
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-around</p>
+          <div class="gravity-around bg-content radius-normal h-32 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">3</span>
           </div>
         </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-evenly</code></p>
-          <div class="gravity-evenly bg-content text-surface p-2 h-48 w-48">
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
-          </div>
-        </div>
-      </div>
-      <div class="gravity-around">
-        <div class="m-2">
-          <p><code class="font-mono">gravity-top-left</code></p>
-          <div class="gravity-top-left bg-content text-surface p-2 h-48 w-48">
-            <span class="bg-primary text-surface p-1 m-1">1</span
-            ><span class="bg-primary text-surface p-4 m-1">2</span
-            ><span class="bg-primary text-surface p-8 m-1">3</span>
-          </div>
-        </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-middle</code></p>
-          <div class="gravity-middle bg-content text-surface p-2 h-48 w-48">
-            <span class="bg-primary text-surface p-1 m-1">1</span
-            ><span class="bg-primary text-surface p-4 m-1">2</span
-            ><span class="bg-primary text-surface p-8 m-1">3</span>
-          </div>
-        </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-bottom-right</code></p>
-          <div
-            class="gravity-bottom-right bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-1 m-1">1</span
-            ><span class="bg-primary text-surface p-4 m-1">2</span
-            ><span class="bg-primary text-surface p-8 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-evenly</p>
+          <div class="gravity-evenly bg-content radius-normal h-32 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">3</span>
           </div>
         </div>
       </div>
       <div class="gravity-around">
-        <div class="m-2">
-          <p><code class="font-mono">gravity-between-left</code></p>
-          <div
-            class="gravity-between-left bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-stretch-left</p>
+          <div class="gravity-stretch-left bg-content radius-normal h-32 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
           </div>
         </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-around-center</code></p>
-          <div
-            class="gravity-around-center bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-stretch-center</p>
+          <div class="gravity-stretch-center bg-content radius-normal h-32 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
           </div>
         </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-evenly-right</code></p>
-          <div
-            class="gravity-evenly-right bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-stretch-between</p>
+          <div class="gravity-stretch-between bg-content radius-normal h-32 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">3</span>
           </div>
         </div>
       </div>
       <div class="gravity-around">
-        <div class="m-2">
-          <p><code class="font-mono">gravity-stretch-left</code></p>
-          <div
-            class="gravity-stretch-left bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-top-stretch</p>
+          <div class="gravity-top-stretch bg-content radius-normal h-48 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
           </div>
         </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-stretch-center</code></p>
-          <div
-            class="gravity-stretch-center bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-middle-stretch</p>
+          <div class="gravity-middle-stretch bg-content radius-normal h-48 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
           </div>
         </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-stretch-between</code></p>
-          <div
-            class="gravity-stretch-between bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
-          </div>
-        </div>
-      </div>
-      <div class="gravity-around">
-        <div class="m-2">
-          <p><code class="font-mono">gravity-top-stretch</code></p>
-          <div
-            class="gravity-top-stretch bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
-          </div>
-        </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-middle-stretch</code></p>
-          <div
-            class="gravity-middle-stretch bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
-          </div>
-        </div>
-        <div class="m-2">
-          <p><code class="font-mono">gravity-between-stretch</code></p>
-          <div
-            class="gravity-between-stretch bg-content text-surface p-2 h-48 w-48"
-          >
-            <span class="bg-primary text-surface p-2 m-1">1</span
-            ><span class="bg-primary text-surface p-2 m-1">2</span
-            ><span class="bg-primary text-surface p-2 m-1">3</span>
+        <div class="m-normal">
+          <p class="type-caption font-mono">gravity-between-stretch</p>
+          <div class="gravity-between-stretch bg-content radius-normal h-48 w-64">
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">1</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">2</span>
+            <span class="bg-primary text-surface px-normal py-tight m-tight radius-tight">3</span>
           </div>
         </div>
       </div>
     </section>
 
-    <footer class="gravity-center p-6">
-      <small>HaoVA Style playground</small>
+    <footer class="gravity-center p-loose">
+      <small class="type-caption font-mono">HaoVA Style playground</small>
     </footer>
 
     <script type="module" src="./main.ts"></script>

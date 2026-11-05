@@ -12,6 +12,28 @@ export interface ColorPalette {
   content?: string;
 }
 
+export interface TypographyRole {
+  size?: number;
+  family?: string | string[];
+  bold?: boolean;
+  italic?: boolean;
+  underline?: boolean;
+}
+
+export interface SpacingGapAxes {
+  x?: number;
+  y?: number;
+}
+
+export interface SpacingGapSides {
+  t?: number;
+  l?: number;
+  r?: number;
+  b?: number;
+}
+
+export type SpacingGap = number | SpacingGapAxes | SpacingGapSides;
+
 export interface HaoVAOptions {
   unit?: string;
   color?: ColorPalette & {
@@ -21,21 +43,42 @@ export interface HaoVAOptions {
   };
   spacing?: {
     base?: number | string;
+    gaps?: Record<string, SpacingGap>;
   };
   typography?: {
     size?: number | string;
     family?: string | string[];
     families?: Record<string, string | string[]>;
+    roles?: Record<string, TypographyRole>;
   };
 }
 
-export type ResolvedOptions = DeepRequired<HaoVAOptions>;
+export type ResolvedSpacingGap = Record<keyof SpacingGapSides, string>;
+
+type ResolvedBase = DeepRequired<HaoVAOptions>;
+
+export type ResolvedOptions = Omit<ResolvedBase, 'spacing'> & {
+  spacing: Omit<ResolvedBase['spacing'], 'gaps'> & {
+    gaps: Record<string, ResolvedSpacingGap>;
+  };
+};
 
 export const DEFAULT_UNIT = 'rem';
 export const DEFAULT_SPACING_BASE = '0.25rem';
+export const DEFAULT_SPACING_GAPS = ['tight', 'normal', 'loose'];
+export const SPACING_GAP_RATIO = 2;
 export const DEFAULT_TYPOGRAPHY_SIZE = '1rem';
 export const DEFAULT_TYPOGRAPHY_FAMILY = ['system-ui', 'sans-serif'];
 export const DEFAULT_TYPOGRAPHY_FAMILIES = ['heading', 'mono'];
+export const DEFAULT_TYPOGRAPHY_ROLES = [
+  'caption',
+  'body',
+  'item',
+  'section',
+  'title',
+  'display',
+];
+export const TYPOGRAPHY_ROLE_STEP = 0.25;
 export const DEFAULT_TYPOGRAPHY_MONO = ['ui-monospace', 'monospace'];
 export const DEFAULT_COLOR_PRIMARY = 'oklch(0.72 0.1 190)';
 export const DEFAULT_COLOR_SURFACE = 'oklch(1 0 0)';

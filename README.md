@@ -7,59 +7,35 @@ _A Configurable Styling Framework_
 - **Standard by default.** Sensible, accessible defaults that follow established design rules, so a minimal configuration is enough to get a consistent result.
 - **Limitless by design.** Every default can be configured or overridden, from tokens down to individual components, with guardrails that warn instead of block.
 
-## Usage
+## Rules
 
-```ts
-// uno.config.ts
-import { presetHaoVA } from '@haova/style';
+A rule is an anchor plus a relationship. Every value is derived from an anchor, not typed in.
 
-presets: [presetHaoVA({ color: { primary: 'oklch(0.55 0.2 260)' } })];
-```
+**value = relationship(anchor, parameter)**
 
-## Options
+You provide the anchor and the parameter. The framework provides the relationship, which is its core job, and turns the result into CSS. Change an anchor and everything tied to it follows. Moving a value off its anchor is allowed, as a deliberate exception.
 
-All optional.
+## Relationships
 
-- `unit`: unit for plain numbers, `'rem'` by default.
-- `spacing.base`: the spacing unit, `'0.25rem'` by default. A number or a string such as `'4px'`.
-- `typography.size`: the root font size, `'1rem'` by default. A number or a string.
+The relationships implemented so far, by module.
 
-Under `color`:
+### Color
 
-- `primary`, `surface`, `content`: `oklch()` colors.
-- `fallback`: `'interpolate'` (default) derives `light` and `dark` from the root colors, `'default'` copies them.
-- `palettes`: overrides for `light` and `dark`. A value you set always wins.
+| Relationship  | Anchor                       | Derived values               | Parameter                  |
+| ------------- | ---------------------------- | ---------------------------- | -------------------------- |
+| Interpolation | root `surface` and `content` | light and dark palettes      | `color.fallback`           |
+| Offset        | the palette's `surface`      | `primary` in each palette    | a fixed lightness distance |
+| Inheritance   | root colors                  | palette values you leave out | `color.fallback`           |
 
-## Output
+### Spacing
 
-CSS variables `--color-primary`, `--color-surface`, `--color-content`, `--spacing-base`, `--typography-size`.
+| Relationship | Anchor         | Derived values         | Parameter                    |
+| ------------ | -------------- | ---------------------- | ---------------------------- |
+| Multiple     | `spacing.base` | spacing, width, height | the factor in the class name |
 
-Set `data-theme="light"` or `"dark"` on `<html>` to force a scheme, remove it to follow the device.
+### Typography
 
-Classes:
-
-- `text-*` and `bg-*` for `primary`, `surface`, `content`.
-- `p-*` and `m-*` for padding and margin, with an optional side (`t`, `r`, `b`, `l`, `x`, `y`). The number multiplies `spacing.base`: `p-4`, `mx-2`, `pt-0.5`.
-- `w-*` and `h-*` for width and height, multiplying `spacing.base`: `w-48`, `h-8`.
-- `inline` and `block` for `display`.
-- `gravity-*` places the content inside a box, see below.
-
-### Gravity
-
-`gravity-{vertical}-{horizontal}` makes the element a flex container and places its content. Vertical is `top`, `middle`, `bottom`. Horizontal is `left`, `center`, `right`. A missing side is centered, so `gravity-top` is top center, `gravity-left` is middle left, and `gravity-middle` and `gravity-center` are both the exact center.
-
-Use `between`, `around` or `evenly` as a side to distribute the content (`space-between`, `space-around`, `space-evenly`). It stays on that side's axis: `gravity-between` spreads horizontally, `gravity-between-left` spreads vertically. Only one side can distribute.
-
-Vertical placement needs a height on the box, for example `h-48`.
-
-## Compatibility
-
-The generated CSS relies on `oklch()`, which sets the baseline:
-
-| Browser             | Version | Year |
-| ------------------- | ------- | ---- |
-| Safari (macOS, iOS) | 15.4    | 2022 |
-| Chrome, Edge        | 111     | 2023 |
-| Firefox             | 113     | 2023 |
-
-All three have supported it since May 2023. Older browsers are not handled yet: colors are lost because `oklch()` is not understood. A fallback for older devices is planned.
+| Relationship | Anchor            | Derived values | Parameter                    |
+| ------------ | ----------------- | -------------- | ---------------------------- |
+| Multiple     | `typography.size` | type sizes     | a fixed factor per type role |
+| Inheritance  | `family`          | `heading` font | none                         |
