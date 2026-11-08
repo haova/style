@@ -2,7 +2,14 @@ import { defineConfig } from 'unocss';
 import { presetHaoVA } from '../src/index';
 
 export default defineConfig({
-  presets: [presetHaoVA({
+  presets: [
+    presetHaoVA({
+      color: {
+        primary: '#4ab9b2',
+      },
+      line: {
+        color: '$color.primary',
+      },
       typography: {
         family: ['Inter', 'sans-serif'],
         families: {
@@ -10,5 +17,6 @@ export default defineConfig({
           mono: ['JetBrains Mono', 'monospace'],
         },
       },
-    })],
+    }),
+  ],
 });

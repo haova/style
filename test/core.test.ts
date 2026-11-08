@@ -9,14 +9,15 @@ describe('createStyle defaults', () => {
     expect(style.line).toEqual({
       width: '1px',
       style: 'solid',
-      color: 'oklch(0.2 0 0)',
+      color: 'rgb(22 22 22)',
     });
     expect(style.spacing.base).toBe('0.25rem');
     expect(style.typography.size).toBe('1rem');
     expect(style.typography.family).toBe('system-ui, sans-serif');
-    expect(style.color.primary).toBe('oklch(0.72 0.1 190)');
-    expect(style.color.surface).toBe('oklch(1 0 0)');
-    expect(style.color.content).toBe('oklch(0.2 0 0)');
+    expect(style.color.format).toBe('rgb');
+    expect(style.color.primary).toBe('rgb(74 185 178)');
+    expect(style.color.surface).toBe('rgb(255 255 255)');
+    expect(style.color.content).toBe('rgb(22 22 22)');
   });
 });
 
@@ -54,13 +55,18 @@ describe('createStyle line', () => {
   });
 
   it('inherits the content color', () => {
-    const style = createStyle({ color: { content: 'oklch(0.3 0 0)' } });
+    const style = createStyle({
+      color: { format: 'oklch', content: 'oklch(0.3 0 0)' },
+    });
 
     expect(style.line.color).toBe('oklch(0.3 0 0)');
   });
 
   it('normalizes the color', () => {
-    const style = createStyle({ line: { color: 'oklch(50% 0.1 400 / 50%)' } });
+    const style = createStyle({
+      color: { format: 'oklch' },
+      line: { color: 'oklch(50% 0.1 400 / 50%)' },
+    });
 
     expect(style.line.color).toBe('oklch(0.5 0.1 40 / 0.5)');
   });
@@ -144,7 +150,7 @@ describe('createStyle typography', () => {
 
 describe('createStyle color', () => {
   it('interpolates light and dark palettes', () => {
-    const { palettes } = createStyle().color;
+    const { palettes } = createStyle({ color: { format: 'oklch' } }).color;
 
     expect(palettes.light).toEqual({
       primary: 'oklch(0.65 0.1 190)',
@@ -160,7 +166,11 @@ describe('createStyle color', () => {
 
   it('puts the lighter color on the light surface', () => {
     const { palettes } = createStyle({
-      color: { surface: 'oklch(0.1 0 0)', content: 'oklch(0.95 0 0)' },
+      color: {
+        format: 'oklch',
+        surface: 'oklch(0.1 0 0)',
+        content: 'oklch(0.95 0 0)',
+      },
     }).color;
 
     expect(palettes.light.surface).toBe('oklch(0.95 0 0)');
@@ -181,7 +191,10 @@ describe('createStyle color', () => {
 
   it('builds a custom palette from root colors', () => {
     const { color } = createStyle({
-      color: { palettes: { brand: { primary: 'oklch(0.5 0.2 30)' } } },
+      color: {
+        format: 'oklch',
+        palettes: { brand: { primary: 'oklch(0.5 0.2 30)' } },
+      },
     });
 
     expect(color.palettes.brand).toEqual({

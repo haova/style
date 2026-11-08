@@ -1,3 +1,5 @@
+import type { ColorFormat } from './color';
+
 type DeepRequired<T> = T extends string[]
   ? string
   : T extends object
@@ -34,10 +36,10 @@ export interface SpacingGapSides {
 
 export type SpacingGap = number | SpacingGapAxes | SpacingGapSides;
 
-export interface HaoVAOptions {
+export interface StyleOptions {
   unit?: string;
   color?: ColorPalette & {
-    format?: 'oklch';
+    format?: ColorFormat;
     fallback?: 'default' | 'interpolate';
     palettes?: Record<string, ColorPalette>;
   };
@@ -60,7 +62,7 @@ export interface HaoVAOptions {
 
 export type ResolvedSpacingGap = Record<keyof SpacingGapSides, string>;
 
-type ResolvedBase = DeepRequired<HaoVAOptions>;
+type ResolvedBase = DeepRequired<StyleOptions>;
 
 export type ResolvedOptions = Omit<ResolvedBase, 'spacing'> & {
   spacing: Omit<ResolvedBase['spacing'], 'gaps'> & {
@@ -93,7 +95,7 @@ export const DEFAULT_TYPOGRAPHY_MONO = ['ui-monospace', 'monospace'];
 export const DEFAULT_COLOR_PRIMARY = 'oklch(0.72 0.1 190)';
 export const DEFAULT_COLOR_SURFACE = 'oklch(1 0 0)';
 export const DEFAULT_COLOR_CONTENT = 'oklch(0.2 0 0)';
-export const DEFAULT_COLOR_FORMAT = 'oklch';
+export const DEFAULT_COLOR_FORMAT: ColorFormat = 'rgb';
 export const DEFAULT_COLOR_FALLBACK = 'interpolate';
 export const INTERPOLATE_PRIMARY_GAP = 0.35;
 export const DEFAULT_COLOR_PALETTES = ['light', 'dark'];

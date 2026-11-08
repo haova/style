@@ -1,7 +1,7 @@
 // Adapter for UnoCSS
 
 import { createStyle } from './core';
-import type { HaoVAOptions, ResolvedOptions } from './config';
+import type { StyleOptions, ResolvedOptions } from './config';
 
 type Rule =
   | [string, Record<string, string>]
@@ -230,7 +230,7 @@ function getSizeRule(prefix: string, property: string): Rule {
   return [pattern, ([, times]) => ({ [property]: getSpacingValue(times) })];
 }
 
-export function presetHaoVA(options: HaoVAOptions = {}) {
+export function presetHaoVA(options: StyleOptions = {}) {
   const { line, spacing, typography, color } = createStyle(options);
 
   const familyVariables = getFamilyVariables(typography.families);

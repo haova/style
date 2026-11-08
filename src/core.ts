@@ -23,7 +23,7 @@ import {
   type SpacingGap,
   type SpacingGapAxes,
   type SpacingGapSides,
-  type HaoVAOptions,
+  type StyleOptions,
   type ResolvedOptions,
 } from './config';
 import { parseColor, formatColor } from './color';
@@ -32,7 +32,8 @@ import { parseFont, formatFont } from './font';
 
 function pickMultiple(...values: (number | undefined)[]): number {
   const found = values.find(
-    (value) => typeof value === 'number' && Number.isFinite(value) && value >= 0,
+    (value) =>
+      typeof value === 'number' && Number.isFinite(value) && value >= 0,
   );
 
   return found ?? 1;
@@ -81,7 +82,7 @@ function extractReferences<T>(
   return output as T;
 }
 
-export function createStyle(options: HaoVAOptions = {}): ResolvedOptions {
+export function createStyle(options: StyleOptions = {}): ResolvedOptions {
   const references: [string[], string][] = [];
   const input = extractReferences(options, references);
 
@@ -111,8 +112,7 @@ export function createStyle(options: HaoVAOptions = {}): ResolvedOptions {
   const gaps: ResolvedOptions['spacing']['gaps'] = {};
   for (const name of gapNames) {
     const index = DEFAULT_SPACING_GAPS.indexOf(name);
-    const defaultMultiple =
-      index === -1 ? 1 : SPACING_GAP_RATIO ** (index + 1);
+    const defaultMultiple = index === -1 ? 1 : SPACING_GAP_RATIO ** (index + 1);
 
     gaps[name] = resolveGap(input.spacing?.gaps?.[name], defaultMultiple);
   }
