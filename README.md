@@ -15,9 +15,27 @@ A rule is an anchor plus a relationship. Every value is derived from an anchor, 
 
 You provide the anchor and the parameter. The framework provides the relationship, which is its core job, and turns the result into CSS. Change an anchor and everything tied to it follows. Moving a value off its anchor is allowed, as a deliberate exception.
 
+Not every CSS value needs a relationship. Values that do not benefit from derivation can be defined directly, while CSS capabilities outside the relationship system remain accessible without requiring the framework to reimplement the entire CSS utility vocabulary.
+
+| Component    | Role                                                                         |
+| ------------ | ---------------------------------------------------------------------------- |
+| Anchor       | The base value that serves as the foundation for deriving other values.      |
+| Parameter    | A parameter that controls how a value is derived.                            |
+| Relationship | The rule that defines how an anchor is transformed according to a parameter. |
+
 ## Relationships
 
-The relationships implemented so far, by module.
+The relationships are implemented according to the following rules:
+
+| Relationship  | How it works                                                             |
+| ------------- | ------------------------------------------------------------------------ |
+| Multiple      | Derived value = Anchor × Parameter                                       |
+| Interpolation | Interpolates between anchors according to a parameter.                   |
+| Offset        | Shifts a value from an anchor by a specified amount.                     |
+| Inheritance   | Retrieves a value from an inherited source according to a fallback rule. |
+| Reference     | Uses a value from a specified source.                                    |
+
+By module:
 
 ### Color
 

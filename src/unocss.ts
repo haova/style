@@ -220,7 +220,9 @@ function getGapRules(
       const sideSuffixes = side === '' ? Object.keys(SIDE_KEYS) : suffixes;
 
       for (const suffix of sideSuffixes) {
-        declarations[property + suffix] = getSpacingValue(gap[SIDE_KEYS[suffix]]);
+        declarations[property + suffix] = getSpacingValue(
+          gap[SIDE_KEYS[suffix]],
+        );
       }
 
       rules.push([`${prefix}${side}-${name}`, declarations]);
@@ -312,18 +314,18 @@ export function presetHaoVA(options: HaoVAOptions = {}) {
       ...getColorRules(),
       ...getFamilyRules(typography.families),
       ...getTypeRules(),
-      ...DISPLAY_RULES,
-      getGravityRule(),
+      ...DISPLAY_RULES, // @deprecated: due to no relationship with any anchors
+      getGravityRule(), // @deprecated: due to no relationship with any anchors
       getBorderRule(),
       ...getBorderColorRules(),
       ...getRadiusGapRules(spacing.gaps),
-      getRadiusRule(),
-      ...getGapRules(spacing.gaps, 'p', 'padding'),
-      ...getGapRules(spacing.gaps, 'm', 'margin'),
-      getSpacingRule('p', 'padding'),
-      getSpacingRule('m', 'margin'),
-      getSizeRule('w', 'width'),
-      getSizeRule('h', 'height'),
+      getRadiusRule(), // @todo: need a way to detach it from spacing.
+      ...getGapRules(spacing.gaps, 'p', 'padding'), // @todo: add semantic tokens
+      ...getGapRules(spacing.gaps, 'm', 'margin'), // @todo: add semantic tokens
+      getSpacingRule('p', 'padding'), // @todo: add semantic tokens
+      getSpacingRule('m', 'margin'), // @todo: add semantic tokens
+      getSizeRule('w', 'width'), // @todo: add semantic tokens
+      getSizeRule('h', 'height'), // @todo: add semantic tokens
     ],
     variants: [],
   };
