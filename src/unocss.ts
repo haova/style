@@ -1,6 +1,6 @@
 // Adapter for UnoCSS
 
-import { createHaoVAStyle } from './core';
+import { createStyle } from './core';
 import type { HaoVAOptions, ResolvedOptions } from './config';
 
 type Rule =
@@ -231,7 +231,7 @@ function getSizeRule(prefix: string, property: string): Rule {
 }
 
 export function presetHaoVA(options: HaoVAOptions = {}) {
-  const { line, spacing, typography, color } = createHaoVAStyle(options);
+  const { line, spacing, typography, color } = createStyle(options);
 
   const familyVariables = getFamilyVariables(typography.families);
   const lightVariables = getColorVariables(color.palettes.light);

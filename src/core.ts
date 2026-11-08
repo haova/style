@@ -53,7 +53,38 @@ function resolveGap(
   };
 }
 
-export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
+function getValue(source: unknown, path: string[]): unknown {
+  return path.reduce(
+    (node, key) => (node as Record<string, unknown> | undefined)?.[key],
+    source,
+  );
+}
+
+function extractReferences<T>(
+  input: T,
+  references: [string[], string][],
+  path: string[] = [],
+): T {
+  const output: Record<string, unknown> = {};
+
+  for (const [key, value] of Object.entries(input as object)) {
+    if (typeof value === 'string' && value.startsWith('$')) {
+      references.push([[...path, key], value.slice(1)]);
+      output[key] = undefined;
+    } else if (typeof value === 'object' && !Array.isArray(value)) {
+      output[key] = extractReferences(value, references, [...path, key]);
+    } else {
+      output[key] = value;
+    }
+  }
+
+  return output as T;
+}
+
+export function createStyle(options: HaoVAOptions = {}): ResolvedOptions {
+  const references: [string[], string][] = [];
+  const input = extractReferences(options, references);
+
   // default units
   const unit = input.unit ?? DEFAULT_UNIT;
   const spacingBase = parseUnit(
@@ -232,7 +263,7 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
     };
   }
 
-  return {
+  const style: ResolvedOptions = {
     unit,
     line: {
       width: formatUnit(lineWidth),
@@ -258,4 +289,15 @@ export function createHaoVAStyle(input: HaoVAOptions = {}): ResolvedOptions {
       palettes,
     },
   };
+
+  // reference mapping
+  for (const [path, reference] of references) {
+    const key = path.pop()!;
+    const parent = getValue(style, path) as Record<string, unknown>;
+    const value = getValue(style, reference.split('.'));
+
+    if (parent && typeof value === typeof parent[key]) parent[key] = value;
+  }
+
+  return style;
 }

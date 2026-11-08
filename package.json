@@ -25,7 +25,8 @@
     "dev": "vite playground --open",
     "format": "prettier . --write",
     "typecheck": "tsc --noEmit",
-    "build": "tsup src/index.ts --format esm,cjs --dts --clean"
+    "build": "tsup src/index.ts --format esm,cjs --dts --clean",
+    "test": "vitest run"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "tsup": "^9.0.0",
     "typescript": "^6.0.3",
     "unocss": "^66.12.0",
-    "vite": "^8.3.5"
+    "vite": "^8.3.5",
+    "vitest": "^5.1.0"
   }
 }
