@@ -38,6 +38,10 @@ export type SpacingGap = number | SpacingGapAxes | SpacingGapSides;
 
 export interface StyleOptions {
   unit?: string;
+  breakpoint?: {
+    base?: number | string;
+    steps?: Record<string, number | string>;
+  };
   color?: ColorPalette & {
     format?: ColorFormat;
     fallback?: 'default' | 'interpolate';
@@ -72,6 +76,9 @@ export type ResolvedOptions = Omit<ResolvedBase, 'spacing'> & {
 
 export const DEFAULT_UNIT = 'rem';
 export const DEFAULT_LINE_UNIT = 'px';
+export const DEFAULT_BREAKPOINT_BASE = '40rem';
+export const DEFAULT_BREAKPOINT_STEPS = ['mobile', 'tablet', 'desktop', 'wide'];
+export const BREAKPOINT_RATIO = 1.25;
 export const DEFAULT_LINE_WIDTH = '1px';
 export type LineStyle = 'solid' | 'dashed' | 'dotted';
 export const DEFAULT_LINE_STYLE: LineStyle = 'solid';

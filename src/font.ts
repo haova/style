@@ -7,7 +7,12 @@ export function parseFont(
   if (input === undefined) return fallback;
 
   const names = (typeof input === 'string' ? input.split(',') : input)
-    .map((name) => name.trim().replace(/^["']|["']$/g, '').trim())
+    .map((name) =>
+      name
+        .trim()
+        .replace(/^["']|["']$/g, '')
+        .trim(),
+    )
     .filter((name) => name !== '');
 
   return names.length > 0 ? names : fallback;

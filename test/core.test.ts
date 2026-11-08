@@ -76,9 +76,9 @@ describe('createStyle spacing gaps', () => {
   it('doubles each default gap', () => {
     const { gaps } = createStyle().spacing;
 
-    expect(gaps.tight).toEqual({ t: '2', l: '2', r: '2', b: '2' });
-    expect(gaps.normal).toEqual({ t: '4', l: '4', r: '4', b: '4' });
-    expect(gaps.loose).toEqual({ t: '8', l: '8', r: '8', b: '8' });
+    expect(gaps.tight).toEqual({ t: '1', l: '1', r: '1', b: '1' });
+    expect(gaps.normal).toEqual({ t: '2', l: '2', r: '2', b: '2' });
+    expect(gaps.loose).toEqual({ t: '4', l: '4', r: '4', b: '4' });
   });
 
   it('applies a number to every side', () => {
@@ -226,5 +226,36 @@ describe('createStyle references', () => {
     const style = createStyle({ line: { color: '$color.nope' } });
 
     expect(style.line.color).toBe(createStyle().line.color);
+  });
+});
+
+describe('createStyle breakpoints', () => {
+  it('derives default steps from the base', () => {
+    expect(createStyle().breakpoint).toEqual({
+      base: '40rem',
+      steps: {
+        mobile: '40rem',
+        tablet: '50rem',
+        desktop: '62.5rem',
+        wide: '78.125rem',
+      },
+    });
+  });
+
+  it('follows a custom base', () => {
+    const { breakpoint } = createStyle({ breakpoint: { base: 30 } });
+
+    expect(breakpoint.base).toBe('30rem');
+    expect(breakpoint.steps.tablet).toBe('37.5rem');
+  });
+
+  it('overrides and adds steps', () => {
+    const { steps } = createStyle({
+      breakpoint: { steps: { tablet: '800px', huge: 100 } },
+    }).breakpoint;
+
+    expect(steps.tablet).toBe('800px');
+    expect(steps.huge).toBe('100rem');
+    expect(steps.mobile).toBe('40rem');
   });
 });

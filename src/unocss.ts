@@ -230,8 +230,32 @@ function getSizeRule(prefix: string, property: string): Rule {
   return [pattern, ([, times]) => ({ [property]: getSpacingValue(times) })];
 }
 
+function getCustomCssRule(): Rule {
+  const pattern = /^css-\[(-{0,2}[a-zA-Z][\w-]*):(.+)\]$/;
+
+  return [
+    pattern,
+    ([, attribute, value]) => ({ [attribute]: value.replace(/_/g, ' ') }),
+  ];
+}
+
+function getBreakpointVariants(steps: Record<string, string>) {
+  return Object.entries(steps).map(([name, width], index) => {
+    const prefix = `${name}:`;
+
+    return (matcher: string) => {
+      if (!matcher.startsWith(prefix)) return undefined;
+
+      return {
+        matcher: matcher.slice(prefix.length),
+        parent: [`@media (min-width:${width})`, index + 1] as [string, number],
+      };
+    };
+  });
+}
+
 export function presetHaoVA(options: StyleOptions = {}) {
-  const { line, spacing, typography, color } = createStyle(options);
+  const { line, spacing, typography, color, breakpoint } = createStyle(options);
 
   const familyVariables = getFamilyVariables(typography.families);
   const lightVariables = getColorVariables(color.palettes.light);
@@ -242,12 +266,17 @@ export function presetHaoVA(options: StyleOptions = {}) {
     preflights: [
       {
         getCSS: () =>
+          '*,*::before,*::after{box-sizing:border-box}' +
+          'button,input,select,textarea,optgroup{font-family:inherit}' +
+          'button,input,select,textarea{border:0;padding:0}' +
+          'h1,h2,h3,h4,h5,h6{margin:0}' +
+          'a{color:inherit;text-decoration:none}' +
           `:root{--line-width:${line.width};--line-style:${line.style};--line-color:${line.color};--spacing-base:${spacing.base};--typography-size:${typography.size};--typography-family:${typography.family};${familyVariables}}` +
           `:root{color-scheme:light dark;${lightVariables}}` +
           `@media (prefers-color-scheme:dark){:root:not([data-theme]){${darkVariables}}}` +
           `:root[data-theme='light']{color-scheme:light;${lightVariables}}` +
           `:root[data-theme='dark']{color-scheme:dark;${darkVariables}}` +
-          'body{background-color:var(--color-surface);color:var(--color-content);font-size:var(--typography-size);font-family:var(--typography-family)}',
+          'body{margin:0;background-color:var(--color-surface);color:var(--color-content);font-size:var(--typography-size);font-family:var(--typography-family)}',
       },
     ],
     rules: [
@@ -264,7 +293,8 @@ export function presetHaoVA(options: StyleOptions = {}) {
       getSpacingRule('m', 'margin'), // @todo: add semantic tokens
       getSizeRule('w', 'width'), // @todo: add semantic tokens
       getSizeRule('h', 'height'), // @todo: add semantic tokens
+      getCustomCssRule(),
     ],
-    variants: [],
+    variants: getBreakpointVariants(breakpoint.steps),
   };
 }

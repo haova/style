@@ -47,9 +47,16 @@ By module:
 
 ### Spacing
 
-| Relationship | Anchor         | Derived values         | Parameter                    |
-| ------------ | -------------- | ---------------------- | ---------------------------- |
-| Multiple     | `spacing.base` | spacing, width, height | the factor in the class name |
+| Relationship | Anchor         | Derived values                  | Parameter                    |
+| ------------ | -------------- | ------------------------------- | ---------------------------- |
+| Multiple     | `spacing.base` | spacing, width, height          | the factor in the class name |
+| Multiple     | `spacing.base` | `tight`, `normal`, `loose` gaps | ratio 2 by index: 1×, 2×, 4× |
+
+### Breakpoint
+
+| Relationship | Anchor            | Derived values                              | Parameter                               |
+| ------------ | ----------------- | ------------------------------------------- | --------------------------------------- |
+| Multiple     | `breakpoint.base` | `mobile`, `tablet`, `desktop`, `wide` steps | ratio 1.25 by index, e.g. 40rem → 50rem |
 
 ### Typography
 

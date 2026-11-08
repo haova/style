@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
     <title>HaoVA Style</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,219 +12,190 @@
       rel="stylesheet"
     />
   </head>
-  <body class="m-0">
-    <header class="px-loose py-normal">
-      <strong class="type-item font-heading">HaoVA Style</strong>
-      <div>
-        <button
-          id="toggle-scheme"
-          class="bg-primary text-surface px-normal py-tight m-tight radius-full"
-        >
-          Toggle scheme
-        </button>
-        <button
-          id="default-scheme"
-          class="bg-content text-surface px-normal py-tight m-tight radius-full"
-        >
-          Default scheme
-        </button>
+  <body>
+    <header class="border-b px-loose py-normal">
+      <div
+        class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto] css-[display:flex] css-[justify-content:space-between] css-[align-items:center] css-[flex-wrap:wrap]"
+      >
+        <strong class="type-item font-heading">Ember Roasters</strong>
+        <nav>
+          <a
+            href="#beans"
+            class="text-primary px-tight css-[text-decoration:none]"
+            >Beans</a
+          >
+          <a
+            href="#story"
+            class="text-primary px-tight css-[text-decoration:none]"
+            >Story</a
+          >
+          <a
+            href="#subscribe"
+            class="text-primary px-tight css-[text-decoration:none]"
+            >Subscribe</a
+          >
+          <button
+            id="toggle-scheme"
+            class="bg-primary text-surface px-normal py-tight m-tight radius-full"
+          >
+            Toggle scheme
+          </button>
+          <button
+            id="default-scheme"
+            class="bg-content text-surface px-normal py-tight m-tight radius-full"
+          >
+            Default
+          </button>
+        </nav>
       </div>
     </header>
 
-    <section class="px-loose">
-      <div
-        class="bg-primary text-surface px-loose py-16 radius-loose"
-      >
-        <div class="w-160">
-          <p class="type-caption font-mono">A configurable styling framework</p>
-          <h1 class="type-display font-heading">
-            Style that follows the standard, until you don't.
-          </h1>
-          <p class="type-item">
-            One brand color is enough for a consistent page. Every default can
-            still be overridden when you want to break the rules.
-          </p>
-          <button
-            class="bg-surface text-primary px-loose py-normal m-tight radius-full"
+    <main>
+      <section class="p-normal tablet:p-loose">
+        <div class="bg-primary text-surface radius-loose p-loose desktop:p-16">
+          <div
+            class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
           >
-            Get started
-          </button>
+            <p class="type-caption font-mono">Small-batch specialty coffee</p>
+            <h1 class="type-title desktop:type-display font-heading">
+              Roasted this week. At your door by Friday.
+            </h1>
+            <p class="type-item">
+              We buy straight from twelve family farms and roast every order in
+              our workshop, in batches of no more than fifteen kilos.
+            </p>
+            <a
+              href="#beans"
+              class="bg-surface text-primary px-loose py-normal m-tight radius-full css-[display:inline-block] css-[text-decoration:none]"
+              >Shop beans</a
+            >
+            <a
+              href="#story"
+              class="border-2 px-loose py-normal m-tight radius-full css-[display:inline-block] css-[text-decoration:none]"
+              >Our story</a
+            >
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="p-loose">
-      <h2 class="type-section font-heading">Three ideas</h2>
-      <div>
-        <article class="bg-content text-surface p-loose m-normal radius-loose w-72">
-          <h3 class="type-item font-heading">Standard</h3>
-          <p>Sensible defaults from one brand color.</p>
-        </article>
-        <article class="bg-content text-surface p-loose m-normal radius-loose w-72">
-          <h3 class="type-item font-heading">Derived</h3>
-          <p>Light and dark palettes follow your colors.</p>
-        </article>
-        <article class="bg-content text-surface p-loose m-normal radius-loose w-72">
-          <h3 class="type-item font-heading">Limitless</h3>
-          <p>Override any value whenever you need.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="p-loose">
-      <h2 class="type-section font-heading">Color</h2>
-      <p>Light and dark palettes derived from your colors.</p>
-      <div>
-        <div class="bg-primary text-surface p-loose m-normal radius-normal w-48">
-          primary
+      <section class="p-normal tablet:p-loose">
+        <div
+          class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
+        >
+          <div
+            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] tablet:css-[grid-template-columns:repeat(3,1fr)]"
+          >
+            <article class="border p-loose radius-loose">
+              <h3 class="type-item font-heading">Fresh, always</h3>
+              <p>Every bag is roasted to order and shipped within 48 hours.</p>
+            </article>
+            <article class="border p-loose radius-loose">
+              <h3 class="type-item font-heading">Direct trade</h3>
+              <p>We pay farmers 30% above fair-trade prices, every harvest.</p>
+            </article>
+            <article class="border p-loose radius-loose">
+              <h3 class="type-item font-heading">Free shipping</h3>
+              <p>On every order over $30, anywhere in the country.</p>
+            </article>
+          </div>
         </div>
-        <div class="bg-content text-surface p-loose m-normal radius-normal w-48">
-          content
-        </div>
-        <div class="bg-content p-tight m-normal radius-normal w-48">
-          <div class="bg-surface text-content p-loose radius-tight">surface</div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="p-loose">
-      <h2 class="type-section font-heading">Spacing</h2>
-      <p>Every space is a multiple of one base unit, or a named gap.</p>
-
-      <p class="type-caption font-mono">p-1 · p-2 · p-4 · p-6 · p-8</p>
-      <div>
-        <div class="bg-primary text-surface p-1 m-tight radius-tight">1</div>
-        <div class="bg-primary text-surface p-2 m-tight radius-tight">2</div>
-        <div class="bg-primary text-surface p-4 m-tight radius-tight">4</div>
-        <div class="bg-primary text-surface p-6 m-tight radius-tight">6</div>
-        <div class="bg-primary text-surface p-8 m-tight radius-tight">8</div>
-      </div>
-
-      <p class="type-caption font-mono">p-tight · p-normal · p-loose</p>
-      <div>
-        <div class="bg-primary text-surface p-tight m-tight radius-tight">
-          tight
+      <section id="beans" class="p-normal tablet:p-loose">
+        <div
+          class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
+        >
+          <h2 class="type-section font-heading">This month's beans</h2>
+          <p>Four coffees, all available as whole bean or ground.</p>
+          <div
+            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] tablet:css-[grid-template-columns:repeat(2,1fr)] wide:css-[grid-template-columns:repeat(4,1fr)]"
+          >
+            <article class="border p-loose radius-loose">
+              <p class="type-caption font-mono">Ethiopia · Light roast</p>
+              <h3 class="type-item font-heading">Yirgacheffe</h3>
+              <p>Jasmine, peach and bergamot. Bright and tea-like.</p>
+              <p class="type-section font-heading">$18</p>
+            </article>
+            <article class="border p-loose radius-loose">
+              <p class="type-caption font-mono">Colombia · Medium roast</p>
+              <h3 class="type-item font-heading">Huila</h3>
+              <p>Red apple, caramel and milk chocolate. Round and sweet.</p>
+              <p class="type-section font-heading">$16</p>
+            </article>
+            <article class="border p-loose radius-loose">
+              <p class="type-caption font-mono">Brazil · Medium-dark</p>
+              <h3 class="type-item font-heading">Cerrado</h3>
+              <p>Hazelnut, cocoa and a long, creamy finish.</p>
+              <p class="type-section font-heading">$15</p>
+            </article>
+            <article class="border p-loose radius-loose">
+              <p class="type-caption font-mono">Blend · Dark roast</p>
+              <h3 class="type-item font-heading">Night Shift</h3>
+              <p>Dark chocolate and toasted almond. Built for milk.</p>
+              <p class="type-section font-heading">$14</p>
+            </article>
+          </div>
         </div>
-        <div class="bg-primary text-surface p-normal m-tight radius-tight">
-          normal
-        </div>
-        <div class="bg-primary text-surface p-loose m-tight radius-tight">
-          loose
-        </div>
-      </div>
+      </section>
 
-      <p class="type-caption font-mono">px-loose py-tight · pl-loose pt-normal</p>
-      <div>
-        <div class="bg-primary text-surface px-loose py-tight m-tight radius-tight">
-          x loose, y tight
+      <section id="story" class="p-normal tablet:p-loose">
+        <div class="bg-content text-surface radius-loose p-loose desktop:p-16">
+          <div
+            class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
+          >
+            <p class="type-caption font-mono">Why we roast</p>
+            <p class="type-section font-heading">
+              "The best cup I have had outside of a tasting room. The Huila is
+              now our house coffee."
+            </p>
+            <p class="type-caption">— Linh, owner of a neighbourhood bakery</p>
+          </div>
         </div>
-        <div class="bg-primary text-surface pl-loose pt-normal m-tight radius-tight">
-          left loose, top normal
+      </section>
+
+      <section id="subscribe" class="p-normal tablet:p-loose">
+        <div
+          class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
+        >
+          <div class="border radius-loose p-loose">
+            <h2 class="type-section font-heading">Never run out</h2>
+            <p>Pick a coffee and a schedule. Pause or cancel any time.</p>
+            <form
+              class="css-[display:flex] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*2)]"
+            >
+              <input
+                type="email"
+                placeholder="you@example.com"
+                aria-label="Email"
+                class="border p-normal radius-full css-[flex:1_1_calc(var(--spacing-base)*48)]"
+              />
+              <select aria-label="Schedule" class="border p-normal radius-full">
+                <option>Every week</option>
+                <option>Every two weeks</option>
+                <option>Every month</option>
+              </select>
+              <button
+                type="submit"
+                class="bg-primary text-surface px-loose py-normal radius-full"
+              >
+                Subscribe
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </main>
 
-    <section class="p-loose">
-      <h2 class="type-section font-heading">Border</h2>
-      <p>
-        One line, defined once: width, style and color. Its color references
-        <code class="font-mono">$color.primary</code>.
-      </p>
-
-      <p class="type-caption font-mono">border · border-2 · border-4</p>
-      <div>
-        <div class="border p-loose m-normal radius-normal w-48">border</div>
-        <div class="border-2 p-loose m-normal radius-normal w-48">border-2</div>
-        <div class="border-4 p-loose m-normal radius-normal w-48">border-4</div>
-      </div>
-
-      <p class="type-caption font-mono">border-primary · border-content</p>
-      <div>
-        <div class="border-2 border-primary p-loose m-normal radius-normal w-48">
-          border-primary
-        </div>
-        <div class="border-2 border-content p-loose m-normal radius-normal w-48">
-          border-content
-        </div>
-      </div>
-
-      <p class="type-caption font-mono">border-t · border-b · border-x · border-y</p>
-      <div>
-        <div class="border-t-2 p-loose m-normal w-48">border-t-2</div>
-        <div class="border-b-2 p-loose m-normal w-48">border-b-2</div>
-        <div class="border-x-2 p-loose m-normal w-48">border-x-2</div>
-        <div class="border-y-2 p-loose m-normal w-48">border-y-2</div>
-      </div>
-    </section>
-
-    <section class="p-loose">
-      <h2 class="type-section font-heading">Radius</h2>
-      <p>Corner radius follows the same gaps.</p>
-
-      <p class="type-caption font-mono">
-        radius-tight · normal · loose · full
-      </p>
-      <div>
-        <div class="bg-primary text-surface p-loose m-normal radius-tight">
-          tight
-        </div>
-        <div class="bg-primary text-surface p-loose m-normal radius-normal">
-          normal
-        </div>
-        <div class="bg-primary text-surface p-loose m-normal radius-loose">
-          loose
-        </div>
-        <div class="bg-primary text-surface p-loose m-normal radius-full">
-          full
-        </div>
-      </div>
-
-      <p class="type-caption font-mono">
-        radius-t · r · b · l · tl · br — loose
-      </p>
-      <div>
-        <div class="bg-content text-surface p-loose m-normal radius-t-loose">t</div>
-        <div class="bg-content text-surface p-loose m-normal radius-r-loose">r</div>
-        <div class="bg-content text-surface p-loose m-normal radius-b-loose">b</div>
-        <div class="bg-content text-surface p-loose m-normal radius-l-loose">l</div>
-        <div class="bg-content text-surface p-loose m-normal radius-tl-loose">tl</div>
-        <div class="bg-content text-surface p-loose m-normal radius-br-loose">br</div>
-      </div>
-    </section>
-
-    <section class="px-loose">
-      <div class="bg-primary text-surface p-loose radius-loose">
-        <h2 class="type-section font-heading">Typography</h2>
-        <p>One base size, and named families for each purpose.</p>
-
+    <footer class="border-t p-loose">
+      <div
+        class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto] css-[display:flex] css-[justify-content:space-between] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*4)]"
+      >
         <div>
-          <div class="bg-content text-surface p-loose m-normal radius-normal w-64">
-            <p class="type-caption font-mono">font-heading</p>
-            <h3 class="type-item font-heading">The quick brown fox</h3>
-          </div>
-          <div class="bg-content text-surface p-loose m-normal radius-normal w-64">
-            <p class="type-caption font-mono">default family</p>
-            <h3 class="type-item">The quick brown fox</h3>
-          </div>
-          <div class="bg-content text-surface p-loose m-normal radius-normal w-64">
-            <p class="type-caption font-mono">font-mono</p>
-            <h3 class="type-item font-mono">The quick brown fox</h3>
-          </div>
+          <strong class="font-heading">Ember Roasters</strong>
+          <p class="type-caption">12 Mill Lane · Open Tue–Sun, 8am–4pm</p>
         </div>
-
-        <div class="p-normal">
-          <p class="type-caption">type-caption</p>
-          <p class="type-body">type-body</p>
-          <p class="type-item font-heading">type-item</p>
-          <p class="type-section font-heading">type-section</p>
-          <p class="type-title font-heading">type-title</p>
-          <p class="type-display font-heading">type-display</p>
-        </div>
+        <small class="type-caption font-mono">© 2026 Ember Roasters</small>
       </div>
-    </section>
-
-    <footer class="p-loose">
-      <small class="type-caption font-mono">HaoVA Style playground</small>
     </footer>
 
     <script type="module" src="./main.ts"></script>

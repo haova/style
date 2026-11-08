@@ -2,6 +2,9 @@ import {
   DEFAULT_UNIT,
   DEFAULT_SPACING_BASE,
   DEFAULT_LINE_UNIT,
+  DEFAULT_BREAKPOINT_BASE,
+  DEFAULT_BREAKPOINT_STEPS,
+  BREAKPOINT_RATIO,
   DEFAULT_LINE_WIDTH,
   DEFAULT_LINE_STYLE,
   LINE_STYLES,
@@ -93,6 +96,33 @@ export function createStyle(options: StyleOptions = {}): ResolvedOptions {
     unit,
   );
 
+  // breakpoints
+  const breakpointBase = parseUnit(
+    input.breakpoint?.base ?? DEFAULT_BREAKPOINT_BASE,
+    unit,
+  );
+
+  const breakpointNames = new Set([
+    ...DEFAULT_BREAKPOINT_STEPS,
+    ...Object.keys(input.breakpoint?.steps ?? {}),
+  ]);
+
+  const steps: ResolvedOptions['breakpoint']['steps'] = {};
+  for (const name of breakpointNames) {
+    const index = DEFAULT_BREAKPOINT_STEPS.indexOf(name);
+    const defaultStep = {
+      ...breakpointBase,
+      value:
+        index === -1
+          ? breakpointBase.value
+          : breakpointBase.value * BREAKPOINT_RATIO ** index,
+    };
+
+    steps[name] = formatUnit(
+      parseUnit(input.breakpoint?.steps?.[name], unit, defaultStep),
+    );
+  }
+
   // line
   const lineWidth = parseUnit(
     input.line?.width,
@@ -112,7 +142,7 @@ export function createStyle(options: StyleOptions = {}): ResolvedOptions {
   const gaps: ResolvedOptions['spacing']['gaps'] = {};
   for (const name of gapNames) {
     const index = DEFAULT_SPACING_GAPS.indexOf(name);
-    const defaultMultiple = index === -1 ? 1 : SPACING_GAP_RATIO ** (index + 1);
+    const defaultMultiple = index === -1 ? 1 : SPACING_GAP_RATIO ** index;
 
     gaps[name] = resolveGap(input.spacing?.gaps?.[name], defaultMultiple);
   }
@@ -265,6 +295,10 @@ export function createStyle(options: StyleOptions = {}): ResolvedOptions {
 
   const style: ResolvedOptions = {
     unit,
+    breakpoint: {
+      base: formatUnit(breakpointBase),
+      steps,
+    },
     line: {
       width: formatUnit(lineWidth),
       style: lineStyle,
