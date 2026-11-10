@@ -15,3 +15,6 @@
 - Removed `radius-full`, because it has no relationship to an anchor. Use `radius-<name>` or `css-[border-radius:9999px]`.
 - Removed the `--line-color` variable.
 - Added `prose`, which styles the tags inside it (headings, paragraphs, links, lists, quotes, code, tables, …) from the same anchors as the utilities. Utilities override it.
+- Added the state variants `hover:`, `focus:`, `focus-visible:`, `active:` and `disabled:`. They chain with the breakpoint variants in either order, and `hover:` applies only where the device can hover.
+- Added a default focus ring: `:focus-visible` draws an outline from `color.primary`, a `line.widths.small` width and a `spacing.gaps.tiny` offset.
+- `hr`, `button`, `input`, `select` and `textarea` are reset with `border-width:0`, so the border color keeps coming from the preflight.

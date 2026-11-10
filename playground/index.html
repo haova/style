@@ -56,6 +56,7 @@
           <a href="#spacing" class="text-primary pr-small">Spacing</a>
           <a href="#line" class="text-primary pr-small">Line</a>
           <a href="#breakpoint" class="text-primary pr-small">Breakpoint</a>
+          <a href="#states" class="text-primary pr-small">States</a>
           <a href="#prose" class="text-primary pr-small">Prose</a>
         </nav>
       </div>
@@ -484,12 +485,98 @@
         </div>
       </section>
 
+      <section id="states" class="my-huge">
+        <div class="pb-small">
+          <div>
+            <span
+              class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
+              >06 · Variants</span
+            >
+          </div>
+          <h2
+            class="type-section font-heading px-small tablet:px-medium mt-medium"
+          >
+            States
+          </h2>
+        </div>
+        <div class="px-small tablet:px-medium pt-small">
+          <div
+            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(2,1fr)] desktop:css-[grid-template-columns:repeat(3,1fr)]"
+          >
+            <div>
+              <button
+                class="bg-surface text-content border px-small py-tiny type-caption font-mono hover:bg-primary hover:text-surface"
+              >
+                Hover me
+              </button>
+              <div class="type-caption font-mono mt-small">
+                hover:bg-primary hover:text-surface
+              </div>
+            </div>
+            <div>
+              <button
+                class="bg-surface text-content border px-small py-tiny type-caption font-mono focus-visible:bg-primary focus-visible:text-surface"
+              >
+                Tab to me
+              </button>
+              <div class="type-caption font-mono mt-small">
+                focus-visible:bg-primary focus-visible:text-surface
+              </div>
+            </div>
+            <div>
+              <button
+                class="bg-surface text-content border px-small py-tiny type-caption font-mono active:bg-content active:text-surface"
+              >
+                Press me
+              </button>
+              <div class="type-caption font-mono mt-small">
+                active:bg-content active:text-surface
+              </div>
+            </div>
+            <div>
+              <button
+                class="bg-surface text-content border px-small py-tiny type-caption font-mono disabled:text-primary"
+                disabled
+              >
+                Disabled
+              </button>
+              <div class="type-caption font-mono mt-small">
+                disabled:text-primary
+              </div>
+            </div>
+            <div>
+              <button
+                class="bg-surface text-content border px-small py-tiny type-caption font-mono tablet:hover:bg-primary tablet:hover:text-surface"
+              >
+                Hover on tablet and up
+              </button>
+              <div class="type-caption font-mono mt-small">
+                tablet:hover:bg-primary tablet:hover:text-surface
+              </div>
+            </div>
+          </div>
+          <p class="type-caption mt-medium">
+            Prefix any class with
+            <code class="font-mono">hover:</code>,
+            <code class="font-mono">focus:</code>,
+            <code class="font-mono">focus-visible:</code>,
+            <code class="font-mono">active:</code> or
+            <code class="font-mono">disabled:</code>. They chain with a
+            breakpoint in either order, and
+            <code class="font-mono">hover:</code> applies only where the device
+            can hover. Every focusable element already gets a ring from
+            <code class="font-mono">color.primary</code>, so press Tab to see
+            it.
+          </p>
+        </div>
+      </section>
+
       <section id="prose" class="my-huge">
         <div class="pb-small">
           <div>
             <span
               class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
-              >06 · Multiple</span
+              >07 · Multiple</span
             >
           </div>
           <h2
@@ -559,7 +646,7 @@
           <div>
             <span
               class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
-              >07 · No relationship</span
+              >08 · No relationship</span
             >
           </div>
           <h2

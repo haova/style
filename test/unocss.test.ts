@@ -179,6 +179,50 @@ describe('presetHaoVA font-body', () => {
   });
 });
 
+describe('presetHaoVA state variants', () => {
+  it('adds the pseudo-class to the selector', async () => {
+    const { css } = await generate(
+      'focus:bg-primary focus-visible:bg-primary active:bg-primary disabled:bg-primary',
+    );
+
+    expect(css).toContain('.focus\\:bg-primary:focus');
+    expect(css).toContain('.focus-visible\\:bg-primary:focus-visible');
+    expect(css).toContain('.active\\:bg-primary:active');
+    expect(css).toContain('.disabled\\:bg-primary:disabled');
+    expect(css).not.toContain('@media');
+  });
+
+  it('keeps hover to devices that can hover', async () => {
+    const { css } = await generate('hover:bg-primary');
+
+    expect(css).toContain('@media (hover:hover)');
+    expect(css).toContain('.hover\\:bg-primary:hover{');
+  });
+
+  it('chains with a breakpoint in either order', async () => {
+    const { css } = await generate('tablet:hover:p-small hover:tablet:p-tiny');
+
+    expect(css).toContain('@media (hover:hover){@media (min-width:50rem){');
+    expect(css).toContain('@media (min-width:50rem){@media (hover:hover){');
+  });
+
+  it('still ignores an unknown variant', async () => {
+    const { matched } = await generate('hovering:bg-primary');
+
+    expect(matched.size).toBe(0);
+  });
+});
+
+describe('presetHaoVA focus ring', () => {
+  it('draws one from the primary color and the line', async () => {
+    const css = await preflight();
+
+    expect(css).toContain(
+      ':focus-visible{outline:calc(var(--line-width) * 2) solid var(--color-primary);outline-offset:calc(var(--spacing-base) * 1)}',
+    );
+  });
+});
+
 describe('presetHaoVA prose', () => {
   it('styles the tags inside', async () => {
     const { css } = await generate('prose');

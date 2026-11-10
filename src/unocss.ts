@@ -308,6 +308,21 @@ function getCustomCssRule(): Rule {
   ];
 }
 
+type VariantInput = { parent?: string; parentOrder?: number };
+
+// variants can be chained, so a parent is added to the one already there
+function withParent<T extends VariantInput>(
+  input: T,
+  parent: string,
+  order?: number,
+): T {
+  return {
+    ...input,
+    parent: input.parent ? `${input.parent} $$ ${parent}` : parent,
+    parentOrder: order ?? input.parentOrder,
+  };
+}
+
 function getBreakpointVariants(steps: Record<string, string>) {
   return Object.entries(steps).map(([name, width], index) => {
     const prefix = `${name}:`;
@@ -317,7 +332,42 @@ function getBreakpointVariants(steps: Record<string, string>) {
 
       return {
         matcher: matcher.slice(prefix.length),
-        parent: [`@media (min-width:${width})`, index + 1] as [string, number],
+        handle: <T extends VariantInput>(input: T, next: (input: T) => T) =>
+          next(withParent(input, `@media (min-width:${width})`, index + 1)),
+      };
+    };
+  });
+}
+
+const STATES: Record<string, string> = {
+  hover: ':hover',
+  focus: ':focus',
+  'focus-visible': ':focus-visible',
+  active: ':active',
+  disabled: ':disabled',
+};
+
+// hover only where the device can hover, so touch screens do not stick
+const STATE_PARENTS: Record<string, string> = {
+  hover: '@media (hover:hover)',
+};
+
+function getStateVariants() {
+  return Object.entries(STATES).map(([name, pseudo]) => {
+    const prefix = `${name}:`;
+
+    return (matcher: string) => {
+      if (!matcher.startsWith(prefix)) return undefined;
+
+      return {
+        matcher: matcher.slice(prefix.length),
+        selector: (selector: string) => `${selector}${pseudo}`,
+        handle: <T extends VariantInput>(input: T, next: (input: T) => T) =>
+          next(
+            STATE_PARENTS[name]
+              ? withParent(input, STATE_PARENTS[name])
+              : input,
+          ),
       };
     };
   });
@@ -340,6 +390,7 @@ export function presetHaoVA(options: StyleOptions = {}) {
           'button,input,select,textarea,optgroup{font-family:inherit}' +
           'button,input,select,textarea{border-width:0;padding:0}' +
           'hr{height:0;border-width:0}' +
+          `:focus-visible{outline:calc(var(--line-width) * ${line.widths.small}) solid var(--color-primary);outline-offset:${getSpacingValue(spacing.gaps.tiny.t)}}` +
           'h1,h2,h3,h4,h5,h6,p,blockquote,figure,pre,dl,dd,ul,ol,hr{margin:0}' +
           'a{color:inherit;text-decoration:none}' +
           `:root{--line-width:${line.width};--line-style:${line.style};--spacing-base:${spacing.base};--typography-size:${typography.size};--typography-family:${typography.family};${familyVariables}}` +
@@ -364,6 +415,9 @@ export function presetHaoVA(options: StyleOptions = {}) {
       ...getSizeRules(spacing.gaps, 'h', 'height', 't'),
       getCustomCssRule(),
     ],
-    variants: getBreakpointVariants(breakpoint.steps),
+    variants: [
+      ...getBreakpointVariants(breakpoint.steps),
+      ...getStateVariants(),
+    ],
   };
 }
