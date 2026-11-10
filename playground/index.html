@@ -13,20 +13,29 @@
     />
   </head>
   <body>
-    <header class="border-b p-normal">
+    <header
+      class="border-b px-normal tablet:px-loose py-normal css-[display:flex] css-[align-items:center] css-[justify-content:space-between] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*4)]"
+    >
       <strong class="type-item font-heading">HaoVA Style</strong>
-      <button
-        id="toggle-scheme"
-        class="bg-primary text-surface px-normal py-tight m-tight"
+      <nav
+        class="css-[display:flex] css-[align-items:center] css-[gap:calc(var(--spacing-base)*4)]"
       >
-        Toggle scheme
-      </button>
-      <button
-        id="default-scheme"
-        class="bg-content text-surface px-normal py-tight m-tight"
-      >
-        Default
-      </button>
+        <a href="https://github.com/haova/style" class="type-caption font-mono"
+          >GitHub</a
+        >
+        <button
+          id="toggle-scheme"
+          class="bg-primary text-surface px-normal py-tight type-caption font-mono"
+        >
+          Toggle scheme
+        </button>
+        <button
+          id="default-scheme"
+          class="bg-surface text-content border px-normal py-tight type-caption font-mono"
+        >
+          Default
+        </button>
+      </nav>
     </header>
 
     <main>
@@ -376,8 +385,13 @@
       </section>
     </main>
 
-    <footer class="border-t p-normal">
+    <footer
+      class="border-t px-normal tablet:px-loose py-normal css-[display:flex] css-[align-items:center] css-[justify-content:space-between] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*4)]"
+    >
       <small class="type-caption font-mono">HaoVA Style</small>
+      <a href="https://github.com/haova/style" class="type-caption font-mono"
+        >GitHub</a
+      >
     </footer>
 
     <script type="module" src="./main.ts"></script>

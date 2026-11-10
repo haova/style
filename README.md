@@ -2,6 +2,8 @@
 
 _A Configurable Styling Framework_
 
+[Playground](https://style.haova.me)
+
 ## Goals
 
 - **Standard by default.** Sensible, accessible defaults that follow established design rules, so a minimal configuration is enough to get a consistent result.
