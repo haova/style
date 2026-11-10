@@ -51,6 +51,7 @@ export interface StyleOptions {
     width?: number | string;
     style?: LineStyle;
     color?: string;
+    widths?: Record<string, number>;
   };
   spacing?: {
     base?: number | string;
@@ -82,9 +83,27 @@ export const BREAKPOINT_RATIO = 1.25;
 export const DEFAULT_LINE_WIDTH = '1px';
 export type LineStyle = 'solid' | 'dashed' | 'dotted';
 export const DEFAULT_LINE_STYLE: LineStyle = 'solid';
+export const DEFAULT_LINE_WIDTHS = [
+  'tiny',
+  'small',
+  'medium',
+  'large',
+  'huge',
+  'giant',
+];
+export const LINE_WIDTH_RATIO = 2;
+export const LINE_COLORS = ['primary', 'surface', 'content'];
+export const DEFAULT_LINE_COLOR = 'content';
 export const LINE_STYLES: LineStyle[] = ['solid', 'dashed', 'dotted'];
 export const DEFAULT_SPACING_BASE = '0.25rem';
-export const DEFAULT_SPACING_GAPS = ['tight', 'normal', 'loose'];
+export const DEFAULT_SPACING_GAPS = [
+  'tiny',
+  'small',
+  'medium',
+  'large',
+  'huge',
+  'giant',
+];
 export const SPACING_GAP_RATIO = 2;
 export const DEFAULT_TYPOGRAPHY_SIZE = '1rem';
 export const DEFAULT_TYPOGRAPHY_FAMILY = ['system-ui', 'sans-serif'];

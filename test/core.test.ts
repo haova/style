@@ -9,7 +9,15 @@ describe('createStyle defaults', () => {
     expect(style.line).toEqual({
       width: '1px',
       style: 'solid',
-      color: 'rgb(22 22 22)',
+      color: 'content',
+      widths: {
+        tiny: '1',
+        small: '2',
+        medium: '4',
+        large: '8',
+        huge: '16',
+        giant: '32',
+      },
     });
     expect(style.spacing.base).toBe('0.25rem');
     expect(style.typography.size).toBe('1rem');
@@ -54,21 +62,54 @@ describe('createStyle line', () => {
     expect(line.style).toBe('solid');
   });
 
-  it('inherits the content color', () => {
-    const style = createStyle({
-      color: { format: 'oklch', content: 'oklch(0.3 0 0)' },
-    });
-
-    expect(style.line.color).toBe('oklch(0.3 0 0)');
+  it('uses the content color by default', () => {
+    expect(createStyle().line.color).toBe('content');
   });
 
-  it('normalizes the color', () => {
-    const style = createStyle({
-      color: { format: 'oklch' },
-      line: { color: 'oklch(50% 0.1 400 / 50%)' },
-    });
+  it('names the color to use', () => {
+    expect(createStyle({ line: { color: 'primary' } }).line.color).toBe(
+      'primary',
+    );
+  });
 
-    expect(style.line.color).toBe('oklch(0.5 0.1 40 / 0.5)');
+  it('falls back on an unknown color name', () => {
+    expect(createStyle({ line: { color: 'red' } }).line.color).toBe('content');
+    expect(createStyle({ line: { color: '$color.primary' } }).line.color).toBe(
+      'content',
+    );
+  });
+});
+
+describe('createStyle line widths', () => {
+  it('doubles each default width', () => {
+    const { widths } = createStyle().line;
+
+    expect(Object.keys(widths)).toEqual([
+      'tiny',
+      'small',
+      'medium',
+      'large',
+      'huge',
+      'giant',
+    ]);
+    expect(widths.giant).toBe('32');
+  });
+
+  it('overrides and adds names', () => {
+    const { widths } = createStyle({
+      line: { widths: { small: 3, thick: 6 } },
+    }).line;
+
+    expect(widths.small).toBe('3');
+    expect(widths.thick).toBe('6');
+  });
+
+  it('ignores an invalid multiple', () => {
+    const { widths } = createStyle({
+      line: { widths: { small: -1 } },
+    }).line;
+
+    expect(widths.small).toBe('2');
   });
 });
 
@@ -76,15 +117,20 @@ describe('createStyle spacing gaps', () => {
   it('doubles each default gap', () => {
     const { gaps } = createStyle().spacing;
 
-    expect(gaps.tight).toEqual({ t: '1', l: '1', r: '1', b: '1' });
-    expect(gaps.normal).toEqual({ t: '2', l: '2', r: '2', b: '2' });
-    expect(gaps.loose).toEqual({ t: '4', l: '4', r: '4', b: '4' });
+    const names = ['tiny', 'small', 'medium', 'large', 'huge', 'giant'];
+
+    expect(Object.keys(gaps)).toEqual(names);
+    names.forEach((name, index) => {
+      const times = String(2 ** index);
+
+      expect(gaps[name]).toEqual({ t: times, l: times, r: times, b: times });
+    });
   });
 
   it('applies a number to every side', () => {
-    const { gaps } = createStyle({ spacing: { gaps: { normal: 3 } } }).spacing;
+    const { gaps } = createStyle({ spacing: { gaps: { small: 3 } } }).spacing;
 
-    expect(gaps.normal).toEqual({ t: '3', l: '3', r: '3', b: '3' });
+    expect(gaps.small).toEqual({ t: '3', l: '3', r: '3', b: '3' });
   });
 
   it('lets a side override its axis', () => {
@@ -207,9 +253,9 @@ describe('createStyle color', () => {
 
 describe('createStyle references', () => {
   it('replaces a reference with the built value', () => {
-    const style = createStyle({ line: { color: '$color.primary' } });
+    const style = createStyle({ color: { surface: '$color.content' } });
 
-    expect(style.line.color).toBe(style.color.primary);
+    expect(style.color.surface).toBe(style.color.content);
   });
 
   it('builds a named entry from a reference', () => {
@@ -223,9 +269,9 @@ describe('createStyle references', () => {
   });
 
   it('keeps the default value when the path does not exist', () => {
-    const style = createStyle({ line: { color: '$color.nope' } });
+    const style = createStyle({ color: { surface: '$color.nope' } });
 
-    expect(style.line.color).toBe(createStyle().line.color);
+    expect(style.color.surface).toBe(createStyle().color.surface);
   });
 });
 

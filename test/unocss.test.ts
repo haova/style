@@ -24,7 +24,9 @@ describe('presetHaoVA preflights', () => {
     expect(css).toContain('--color-primary:');
     expect(css).toContain('*,*::before,*::after{box-sizing:border-box}');
     expect(css).toContain('button,input,select,textarea{border:0;padding:0}');
-    expect(css).toContain('h1,h2,h3,h4,h5,h6{margin:0}');
+    expect(css).toContain(
+      'h1,h2,h3,h4,h5,h6,p,blockquote,figure,pre,dl,dd,ul,ol,hr{margin:0}',
+    );
     expect(css).toContain('a{color:inherit;text-decoration:none}');
     expect(css).toContain('body{margin:0;');
   });
@@ -45,50 +47,113 @@ describe('presetHaoVA rules', () => {
     expect(css).toContain('border-color:var(--color-content)');
   });
 
-  it('maps spacing factors and sides', async () => {
-    const { css } = await generate('p-4 mx-2 pt-1 w-8 h-3');
+  it('maps spacing gaps and sides', async () => {
+    const { css } = await generate('p-tiny mx-small pt-medium px-large');
 
-    expect(css).toContain('padding:calc(var(--spacing-base) * 4)');
+    expect(css).toContain('padding-top:calc(var(--spacing-base) * 1)');
     expect(css).toContain('margin-left:calc(var(--spacing-base) * 2)');
     expect(css).toContain('margin-right:calc(var(--spacing-base) * 2)');
-    expect(css).toContain('padding-top:calc(var(--spacing-base) * 1)');
-    expect(css).toContain('width:calc(var(--spacing-base) * 8)');
-    expect(css).toContain('height:calc(var(--spacing-base) * 3)');
+    expect(css).toContain('padding-top:calc(var(--spacing-base) * 4)');
+    expect(css).toContain('padding-left:calc(var(--spacing-base) * 8)');
   });
 
-  it('maps spacing gaps', async () => {
-    const { css } = await generate('p-tight px-loose');
+  it('maps sizes by gap name', async () => {
+    const { css } = await generate('w-huge h-giant');
 
-    expect(css).toContain('padding-top:calc(var(--spacing-base) * 1)');
-    expect(css).toContain('padding-left:calc(var(--spacing-base) * 4)');
+    expect(css).toContain('width:calc(var(--spacing-base) * 16)');
+    expect(css).toContain('height:calc(var(--spacing-base) * 32)');
+  });
+
+  it('follows custom gaps', async () => {
+    const { css } = await generate('p-card w-card', {
+      spacing: { gaps: { card: { x: 3, y: 5 } } },
+    });
+
+    expect(css).toContain('padding-top:calc(var(--spacing-base) * 5)');
+    expect(css).toContain('padding-left:calc(var(--spacing-base) * 3)');
+    expect(css).toContain('width:calc(var(--spacing-base) * 3)');
+  });
+
+  it('has no numeric spacing', async () => {
+    const { matched } = await generate('p-4 m-2 w-8 h-1 radius-3 px-0');
+
+    expect(matched.size).toBe(0);
   });
 
   it('maps borders', async () => {
-    const { css } = await generate('border border-2 border-t-4');
+    const { css } = await generate('border border-small border-t-large');
+
+    expect(css).toContain('border-width:calc(var(--line-width) * 1)');
+    expect(css).toContain('border-width:calc(var(--line-width) * 2)');
+    expect(css).toContain('border-style:var(--line-style)');
+    expect(css).toContain('border-top-width:calc(var(--line-width) * 8)');
+    expect(css).toContain('border-top-style:var(--line-style)');
+    expect(css).not.toContain('border-color');
+  });
+
+  it('maps every border width name and side', async () => {
+    const { matched } = await generate(
+      'border-tiny border-giant border-x-medium border-b-huge border-l-small',
+    );
+
+    expect(matched.size).toBe(5);
+  });
+
+  it('follows custom border widths', async () => {
+    const { css } = await generate('border-thick', {
+      line: { widths: { thick: 6 } },
+    });
+
+    expect(css).toContain('border-width:calc(var(--line-width) * 6)');
+  });
+
+  it('has no numeric border width', async () => {
+    const { matched } = await generate('border-0 border-1 border-t-2');
+
+    expect(matched.size).toBe(0);
+  });
+
+  it('sets the line color once for every element', async () => {
+    const css = await preflight();
 
     expect(css).toContain(
-      'border:calc(var(--line-width) * 1) var(--line-style) var(--line-color)',
+      '*,*::before,*::after{border-color:var(--color-content)}',
     );
-    expect(css).toContain('calc(var(--line-width) * 2)');
+    expect(css).not.toContain('--line-color');
+  });
+
+  it('follows the line color name', async () => {
+    const css = await preflight({ line: { color: 'primary' } });
+
     expect(css).toContain(
-      'border-top:calc(var(--line-width) * 4) var(--line-style) var(--line-color)',
+      '*,*::before,*::after{border-color:var(--color-primary)}',
     );
   });
 
   it('maps radius', async () => {
-    const { css } = await generate('radius-full radius-tl-loose radius-3');
+    const { css } = await generate('radius-tl-medium radius-large');
 
-    expect(css).toContain('border-radius:9999px');
+    expect(css).toContain(
+      'border-bottom-right-radius:calc(var(--spacing-base) * 8)',
+    );
     expect(css).toContain(
       'border-top-left-radius:calc(var(--spacing-base) * 4)',
     );
-    expect(css).toContain('border-radius:calc(var(--spacing-base) * 3)');
+  });
+
+  it('has no radius-full', async () => {
+    const { matched } = await generate('radius-full radius-t-full');
+
+    expect(matched.size).toBe(0);
   });
 
   it('maps typography', async () => {
-    const { css } = await generate('type-display font-heading font-mono');
+    const { css } = await generate(
+      'type-display font-body font-heading font-mono',
+    );
 
     expect(css).toContain('font-size:calc(var(--typography-size) * 3)');
+    expect(css).toContain('font-family:var(--typography-family)');
     expect(css).toContain('font-family:var(--typography-family-heading)');
     expect(css).toContain('font-family:var(--typography-family-mono)');
   });
@@ -97,6 +162,17 @@ describe('presetHaoVA rules', () => {
     const { matched } = await generate('p-abc type-unknown border-q');
 
     expect(matched.size).toBe(0);
+  });
+});
+
+describe('presetHaoVA font-body', () => {
+  it('is the root family and not a family of its own', async () => {
+    const { css } = await generate('font-body', {
+      typography: { families: { body: 'Georgia' } },
+    });
+
+    expect(css.match(/font-family/g)).toHaveLength(1);
+    expect(css).toContain('font-family:var(--typography-family)');
   });
 });
 
@@ -128,15 +204,15 @@ describe('presetHaoVA css-[property:value]', () => {
 
 describe('presetHaoVA breakpoint variants', () => {
   it('wraps a rule in a min-width media query', async () => {
-    const { css } = await generate('tablet:p-2');
+    const { css } = await generate('tablet:p-small');
 
     expect(css).toContain('@media (min-width:50rem)');
-    expect(css).toContain('.tablet\\:p-2');
+    expect(css).toContain('.tablet\\:p-small');
   });
 
   it('orders larger breakpoints after smaller ones', async () => {
     const { css } = await generate(
-      'wide:p-4 mobile:p-1 desktop:p-3 tablet:p-2',
+      'wide:p-large mobile:p-tiny desktop:p-medium tablet:p-small',
     );
     const order = ['40rem', '50rem', '62.5rem', '78.125rem'].map((width) =>
       css.indexOf(`min-width:${width}`),
@@ -154,7 +230,7 @@ describe('presetHaoVA breakpoint variants', () => {
   });
 
   it('follows custom steps', async () => {
-    const { css } = await generate('huge:p-1', {
+    const { css } = await generate('huge:p-tiny', {
       breakpoint: { steps: { huge: '100rem' } },
     });
 
@@ -162,7 +238,7 @@ describe('presetHaoVA breakpoint variants', () => {
   });
 
   it('ignores unknown variants', async () => {
-    const { matched } = await generate('giant:p-1');
+    const { matched } = await generate('giant:p-tiny');
 
     expect(matched.size).toBe(0);
   });

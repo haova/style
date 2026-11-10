@@ -8,7 +8,7 @@ export default defineConfig({
         primary: '#4ab9b2',
       },
       line: {
-        color: '$color.primary',
+        color: 'primary',
       },
       typography: {
         family: ['Inter', 'sans-serif'],

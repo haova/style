@@ -8,6 +8,10 @@ import {
   DEFAULT_LINE_WIDTH,
   DEFAULT_LINE_STYLE,
   LINE_STYLES,
+  DEFAULT_LINE_WIDTHS,
+  LINE_WIDTH_RATIO,
+  LINE_COLORS,
+  DEFAULT_LINE_COLOR,
   DEFAULT_SPACING_GAPS,
   SPACING_GAP_RATIO,
   DEFAULT_TYPOGRAPHY_SIZE,
@@ -133,6 +137,21 @@ export function createStyle(options: StyleOptions = {}): ResolvedOptions {
     LINE_STYLES.find((style) => style === input.line?.style) ??
     DEFAULT_LINE_STYLE;
 
+  const lineWidthNames = new Set([
+    ...DEFAULT_LINE_WIDTHS,
+    ...Object.keys(input.line?.widths ?? {}),
+  ]);
+
+  const lineWidths: ResolvedOptions['line']['widths'] = {};
+  for (const name of lineWidthNames) {
+    const index = DEFAULT_LINE_WIDTHS.indexOf(name);
+    const defaultMultiple = index === -1 ? 1 : LINE_WIDTH_RATIO ** index;
+
+    lineWidths[name] = String(
+      pickMultiple(input.line?.widths?.[name], defaultMultiple),
+    );
+  }
+
   // spacing gaps
   const gapNames = new Set([
     ...DEFAULT_SPACING_GAPS,
@@ -220,9 +239,6 @@ export function createStyle(options: StyleOptions = {}): ResolvedOptions {
     input.color?.content ?? DEFAULT_COLOR_CONTENT,
   );
 
-  // line color
-  const lineColor = parseColor(input.line?.color, contentColor);
-
   // interpolate colors
   const isSurfaceLighter = surfaceColor.l >= contentColor.l;
   const lighterColor = isSurfaceLighter ? surfaceColor : contentColor;
@@ -302,7 +318,10 @@ export function createStyle(options: StyleOptions = {}): ResolvedOptions {
     line: {
       width: formatUnit(lineWidth),
       style: lineStyle,
-      color: formatColor(lineColor, colorFormat),
+      widths: lineWidths,
+      color:
+        LINE_COLORS.find((name) => name === input.line?.color) ??
+        DEFAULT_LINE_COLOR,
     },
     spacing: {
       base: formatUnit(spacingBase),
@@ -331,6 +350,11 @@ export function createStyle(options: StyleOptions = {}): ResolvedOptions {
     const value = getValue(style, reference.split('.'));
 
     if (parent && typeof value === typeof parent[key]) parent[key] = value;
+  }
+
+  // a line color is the name of a color, not a value
+  if (!LINE_COLORS.includes(style.line.color)) {
+    style.line.color = DEFAULT_LINE_COLOR;
   }
 
   return style;

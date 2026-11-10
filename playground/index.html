@@ -14,7 +14,7 @@
   </head>
   <body>
     <header
-      class="border-b px-normal tablet:px-loose py-normal css-[display:flex] css-[align-items:center] css-[justify-content:space-between] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*4)]"
+      class="border-b px-small tablet:px-medium py-small css-[display:flex] css-[align-items:center] css-[justify-content:space-between] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*4)]"
     >
       <strong class="type-item font-heading">HaoVA Style</strong>
       <nav
@@ -25,13 +25,13 @@
         >
         <button
           id="toggle-scheme"
-          class="bg-primary text-surface px-normal py-tight type-caption font-mono"
+          class="bg-primary text-surface px-small py-tiny type-caption font-mono"
         >
           Toggle scheme
         </button>
         <button
           id="default-scheme"
-          class="bg-surface text-content border px-normal py-tight type-caption font-mono"
+          class="bg-surface text-content border px-small py-tiny type-caption font-mono"
         >
           Default
         </button>
@@ -39,65 +39,106 @@
     </header>
 
     <main>
-      <div class="px-normal tablet:px-loose my-12">
-        <p class="type-caption font-mono text-primary">
+      <div class="px-small tablet:px-medium my-huge">
+        <p class="type-caption font-mono text-primary mb-small">
           A configurable styling framework
         </p>
         <h1 class="type-title desktop:type-display font-heading">
           Anchor in. Relationships out.
         </h1>
-        <p class="type-item">
+        <p class="type-item mt-medium">
           Everything below is styled by this framework, from one handful of
           anchors.
         </p>
-        <nav>
-          <a href="#color" class="text-primary pr-normal">Color</a>
-          <a href="#type" class="text-primary pr-normal">Typography</a>
-          <a href="#spacing" class="text-primary pr-normal">Spacing</a>
-          <a href="#line" class="text-primary pr-normal">Line</a>
-          <a href="#breakpoint" class="text-primary pr-normal">Breakpoint</a>
+        <nav class="mt-medium">
+          <a href="#color" class="text-primary pr-small">Color</a>
+          <a href="#type" class="text-primary pr-small">Typography</a>
+          <a href="#spacing" class="text-primary pr-small">Spacing</a>
+          <a href="#line" class="text-primary pr-small">Line</a>
+          <a href="#breakpoint" class="text-primary pr-small">Breakpoint</a>
         </nav>
       </div>
 
-      <section id="color" class="my-12">
-        <div class="pb-normal">
+      <section id="color" class="my-huge">
+        <div class="pb-small">
           <div>
             <span
-              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
               >01 · Interpolation · Offset · Inheritance</span
             >
           </div>
           <h2
-            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+            class="type-section font-heading px-small tablet:px-medium mt-medium"
           >
             Color
           </h2>
         </div>
-        <div class="px-normal tablet:px-loose pt-normal">
+        <div class="px-small tablet:px-medium pt-small">
           <div
             class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(3,1fr)]"
           >
-            <div class="bg-primary text-surface p-loose">
+            <div class="bg-primary text-surface p-medium">
               <div class="type-item font-heading">primary</div>
               <div class="type-caption font-mono">bg-primary</div>
-              <div class="type-caption font-mono">text-surface</div>
             </div>
             <div
-              class="bg-surface text-content p-loose css-[box-shadow:inset_0_0_0_1px_var(--line-color)]"
+              class="bg-surface text-content p-medium css-[box-shadow:inset_0_0_0_1px_var(--color-primary)]"
             >
               <div class="type-item font-heading">surface</div>
               <div class="type-caption font-mono">bg-surface</div>
-              <div class="type-caption font-mono">text-content</div>
             </div>
-            <div class="bg-content text-surface p-loose">
+            <div class="bg-content text-surface p-medium">
               <div class="type-item font-heading">content</div>
               <div class="type-caption font-mono">bg-content</div>
-              <div class="type-caption font-mono">text-surface</div>
             </div>
           </div>
-          <h3 class="type-item font-heading mt-loose">Customize</h3>
+          <div
+            class="mt-medium css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(3,1fr)]"
+          >
+            <div class="bg-surface p-medium">
+              <div class="text-primary type-caption font-mono">
+                text-primary
+              </div>
+            </div>
+            <div class="bg-content p-medium">
+              <div class="text-surface type-caption font-mono">
+                text-surface
+              </div>
+            </div>
+            <div class="bg-surface p-medium">
+              <div class="text-content type-caption font-mono">
+                text-content
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-medium css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(3,1fr)]"
+          >
+            <div class="bg-surface text-content p-small">
+              <div
+                class="border-t-medium border-primary pt-small type-caption font-mono"
+              >
+                border-t-medium border-primary
+              </div>
+            </div>
+            <div class="bg-content text-surface p-small">
+              <div
+                class="border-t-medium border-surface pt-small type-caption font-mono"
+              >
+                border-t-medium border-surface
+              </div>
+            </div>
+            <div class="bg-surface text-content p-small">
+              <div
+                class="border-t-medium border-content pt-small type-caption font-mono"
+              >
+                border-t-medium border-content
+              </div>
+            </div>
+          </div>
+          <h3 class="type-item font-heading mt-medium">Customize</h3>
           <pre
-            class="border p-normal font-mono type-caption"
+            class="border p-small font-mono type-caption mt-small"
           ><code>presetHaoVA({
   color: {
     primary: '#4ab9b2',
@@ -108,7 +149,7 @@
     },
   },
 })</code></pre>
-          <p class="type-caption">
+          <p class="type-caption mt-small">
             <code class="font-mono">surface</code> and
             <code class="font-mono">content</code> are anchors; light and dark
             follow from them (flip the scheme from the top bar). Anything you
@@ -123,59 +164,74 @@
         </div>
       </section>
 
-      <section id="type" class="my-12">
-        <div class="pb-normal">
+      <section id="type" class="my-huge">
+        <div class="pb-small">
           <div>
             <span
-              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
               >02 · Multiple · Inheritance</span
             >
           </div>
           <h2
-            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+            class="type-section font-heading px-small tablet:px-medium mt-medium"
           >
             Typography
           </h2>
         </div>
-        <div class="px-normal tablet:px-loose pt-normal">
-          <div class="py-tight">
+        <div class="px-small tablet:px-medium pt-small">
+          <div class="py-tiny">
             <code class="font-mono type-caption text-primary"
               >type-display</code
             >
             <div class="type-display">The quick brown fox</div>
           </div>
-          <div class="py-tight">
+          <div class="py-tiny">
             <code class="font-mono type-caption text-primary">type-title</code>
             <div class="type-title">The quick brown fox</div>
           </div>
-          <div class="py-tight">
+          <div class="py-tiny">
             <code class="font-mono type-caption text-primary"
               >type-section</code
             >
             <div class="type-section">The quick brown fox</div>
           </div>
-          <div class="py-tight">
+          <div class="py-tiny">
             <code class="font-mono type-caption text-primary">type-item</code>
             <div class="type-item">The quick brown fox</div>
           </div>
-          <div class="py-tight">
+          <div class="py-tiny">
             <code class="font-mono type-caption text-primary">type-body</code>
             <div class="type-body">The quick brown fox</div>
           </div>
-          <div class="py-tight">
+          <div class="py-tiny">
             <code class="font-mono type-caption text-primary"
               >type-caption</code
             >
             <div class="type-caption">The quick brown fox</div>
           </div>
-          <div class="py-normal">
-            <p class="type-item">Inter — the default family</p>
-            <p class="type-item font-heading">Fraunces — the heading family</p>
-            <p class="type-item font-mono">JetBrains Mono — the mono family</p>
+          <div class="py-small">
+            <div class="py-tiny">
+              <code class="font-mono type-caption text-primary">font-body</code>
+              <p class="type-item font-body">Inter — the default family</p>
+            </div>
+            <div class="py-tiny">
+              <code class="font-mono type-caption text-primary"
+                >font-heading</code
+              >
+              <p class="type-item font-heading">
+                Fraunces — the heading family
+              </p>
+            </div>
+            <div class="py-tiny">
+              <code class="font-mono type-caption text-primary">font-mono</code>
+              <p class="type-item font-mono">
+                JetBrains Mono — the mono family
+              </p>
+            </div>
           </div>
-          <h3 class="type-item font-heading mt-loose">Customize</h3>
+          <h3 class="type-item font-heading mt-medium">Customize</h3>
           <pre
-            class="border p-normal font-mono type-caption"
+            class="border p-small font-mono type-caption mt-small"
           ><code>typography: {
   size: '1rem',                      // anchor
   family: ['Inter', 'sans-serif'],
@@ -184,7 +240,7 @@
     mono: ['JetBrains Mono', 'monospace'],
   },
 }</code></pre>
-          <p class="type-caption">
+          <p class="type-caption mt-small">
             <code class="font-mono">size</code> is the anchor; every
             <code class="font-mono">type-*</code> is a fixed factor of it. Each
             name in <code class="font-mono">families</code> becomes a
@@ -195,189 +251,254 @@
         </div>
       </section>
 
-      <section id="spacing" class="my-12">
-        <div class="pb-normal">
+      <section id="spacing" class="my-huge">
+        <div class="pb-small">
           <div>
             <span
-              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
               >03 · Multiple</span
             >
           </div>
           <h2
-            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+            class="type-section font-heading px-small tablet:px-medium mt-medium"
           >
             Spacing
           </h2>
         </div>
-        <div class="px-normal tablet:px-loose pt-normal">
-          <div class="py-tight">
-            <code class="font-mono type-caption">w-4</code>
-            <div class="bg-primary h-4 w-4"></div>
+        <div class="px-small tablet:px-medium pt-small">
+          <div class="py-tiny">
+            <code class="font-mono type-caption">w-tiny · 1× base</code>
+            <div class="bg-primary h-medium w-tiny"></div>
           </div>
-          <div class="py-tight">
-            <code class="font-mono type-caption">w-8</code>
-            <div class="bg-primary h-4 w-8"></div>
+          <div class="py-tiny">
+            <code class="font-mono type-caption">w-small · 2× base</code>
+            <div class="bg-primary h-medium w-small"></div>
           </div>
-          <div class="py-tight">
-            <code class="font-mono type-caption">w-16</code>
-            <div class="bg-primary h-4 w-16"></div>
+          <div class="py-tiny">
+            <code class="font-mono type-caption">w-medium · 4× base</code>
+            <div class="bg-primary h-medium w-medium"></div>
           </div>
-          <div class="py-tight">
-            <code class="font-mono type-caption">w-32</code>
-            <div class="bg-primary h-4 w-32"></div>
+          <div class="py-tiny">
+            <code class="font-mono type-caption">w-large · 8× base</code>
+            <div class="bg-primary h-medium w-large"></div>
           </div>
-          <div class="py-tight">
-            <code class="font-mono type-caption">w-64</code>
-            <div class="bg-primary h-4 w-64"></div>
+          <div class="py-tiny">
+            <code class="font-mono type-caption">w-huge · 16× base</code>
+            <div class="bg-primary h-medium w-huge"></div>
+          </div>
+          <div class="py-tiny">
+            <code class="font-mono type-caption">w-giant · 32× base</code>
+            <div class="bg-primary h-medium w-giant"></div>
           </div>
           <div
-            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(3,1fr)] py-normal"
+            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(3,1fr)] py-small"
           >
-            <div class="bg-primary text-surface p-tight font-mono type-caption">
-              p-tight
+            <div
+              class="border-l-medium border-primary pl-tiny py-tiny font-mono type-caption"
+            >
+              pl-tiny
             </div>
             <div
-              class="bg-primary text-surface p-normal font-mono type-caption"
+              class="border-l-medium border-primary pl-small py-tiny font-mono type-caption"
             >
-              p-normal
+              pl-small
             </div>
-            <div class="bg-primary text-surface p-loose font-mono type-caption">
-              p-loose
+            <div
+              class="border-l-medium border-primary pl-medium py-tiny font-mono type-caption"
+            >
+              pl-medium
+            </div>
+            <div
+              class="border-l-medium border-primary pl-large py-tiny font-mono type-caption"
+            >
+              pl-large
+            </div>
+            <div
+              class="border-l-medium border-primary pl-huge py-tiny font-mono type-caption"
+            >
+              pl-huge
+            </div>
+            <div
+              class="border-l-medium border-primary pl-giant py-tiny font-mono type-caption"
+            >
+              pl-giant
             </div>
           </div>
-          <h3 class="type-item font-heading mt-loose">Customize</h3>
-          <pre class="border p-normal font-mono type-caption"><code>spacing: {
+          <h3 class="type-item font-heading mt-medium">Customize</h3>
+          <pre
+            class="border p-small font-mono type-caption mt-small"
+          ><code>spacing: {
   base: '0.25rem',          // anchor
   gaps: {
-    normal: { x: 2, y: 2 }, // multiples of base
-    huge: 8,                // adds p-huge, m-huge, radius-huge
+    medium: { x: 6, y: 4 }, // change a step
+    card: 12,               // adds p-card, m-card, w-card, radius-card
   },
 }</code></pre>
-          <p class="type-caption">
-            Every size is a multiple of <code class="font-mono">base</code>.
-            <code class="font-mono">tight</code>,
-            <code class="font-mono">normal</code> and
-            <code class="font-mono">loose</code> default to 1×, 2×, 4×. A gap
-            takes a number, <code class="font-mono">{ x, y }</code> or
+          <p class="type-caption mt-small">
+            Every size is a multiple of <code class="font-mono">base</code>. The
+            six names double at each step:
+            <code class="font-mono">tiny</code> 1×,
+            <code class="font-mono">small</code> 2×,
+            <code class="font-mono">medium</code> 4×,
+            <code class="font-mono">large</code> 8×,
+            <code class="font-mono">huge</code> 16×,
+            <code class="font-mono">giant</code> 32×. A gap takes a number,
+            <code class="font-mono">{ x, y }</code> or
             <code class="font-mono">{ t, r, b, l }</code>.
           </p>
         </div>
       </section>
 
-      <section id="line" class="my-12">
-        <div class="pb-normal">
+      <section id="line" class="my-huge">
+        <div class="pb-small">
           <div>
             <span
-              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
               >04 · Multiple</span
             >
           </div>
           <h2
-            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+            class="type-section font-heading px-small tablet:px-medium mt-medium"
           >
             Line and radius
           </h2>
         </div>
-        <div class="px-normal tablet:px-loose pt-normal">
+        <div class="px-small tablet:px-medium pt-small">
+          <div
+            class="mb-medium css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(2,1fr)] tablet:css-[grid-template-columns:repeat(3,1fr)]"
+          >
+            <div class="border-t-tiny pt-small font-mono type-caption">
+              border-t-tiny
+            </div>
+            <div class="border-t-small pt-small font-mono type-caption">
+              border-t-small
+            </div>
+            <div class="border-t-medium pt-small font-mono type-caption">
+              border-t-medium
+            </div>
+            <div class="border-t-large pt-small font-mono type-caption">
+              border-t-large
+            </div>
+            <div class="border-t-huge pt-small font-mono type-caption">
+              border-t-huge
+            </div>
+            <div class="border-t-giant pt-small font-mono type-caption">
+              border-t-giant
+            </div>
+          </div>
           <div
             class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(2,1fr)] desktop:css-[grid-template-columns:repeat(3,1fr)]"
           >
-            <div class="border radius-tight p-normal font-mono type-caption">
-              border radius-tight
-            </div>
-            <div class="border-2 radius-normal p-normal font-mono type-caption">
-              border-2 radius-normal
-            </div>
-            <div class="border-4 radius-loose p-normal font-mono type-caption">
-              border-4 radius-loose
+            <div class="border radius-tiny p-small font-mono type-caption">
+              border radius-tiny
             </div>
             <div
-              class="border border-primary radius-full p-normal font-mono type-caption"
+              class="border-small radius-small p-small font-mono type-caption"
             >
-              border border-primary radius-full
+              border-small radius-small
             </div>
-            <div class="border-b p-normal font-mono type-caption">border-b</div>
-            <div class="border radius-t-loose p-normal font-mono type-caption">
-              border radius-t-loose
+            <div
+              class="border-medium radius-medium p-small font-mono type-caption"
+            >
+              border-medium radius-medium
+            </div>
+            <div
+              class="border border-primary radius-large p-small font-mono type-caption"
+            >
+              border border-primary radius-large
+            </div>
+            <div class="border-b p-small font-mono type-caption">border-b</div>
+            <div class="border radius-t-medium p-small font-mono type-caption">
+              border radius-t-medium
             </div>
           </div>
-          <h3 class="type-item font-heading mt-loose">Customize</h3>
-          <pre class="border p-normal font-mono type-caption"><code>line: {
-  width: '1px',
+          <h3 class="type-item font-heading mt-medium">Customize</h3>
+          <pre
+            class="border p-small font-mono type-caption mt-small"
+          ><code>line: {
+  width: '1px',             // anchor
   style: 'solid',           // 'dashed' | 'dotted'
-  color: '$color.primary',  // reference; defaults to content
+  color: 'primary',         // a color name; defaults to content
+  widths: { thick: 6 },     // adds border-thick, border-t-thick, ...
 }</code></pre>
-          <p class="type-caption">
-            <code class="font-mono">border-N</code> multiplies
-            <code class="font-mono">width</code>. A value starting with
-            <code class="font-mono">$</code> reads another option, so the line
-            follows the palette.
+          <p class="type-caption mt-small">
+            <code class="font-mono">border</code> is one
+            <code class="font-mono">width</code>. The six names double at each
+            step: <code class="font-mono">tiny</code> 1×,
+            <code class="font-mono">small</code> 2×,
+            <code class="font-mono">medium</code> 4×,
+            <code class="font-mono">large</code> 8×,
+            <code class="font-mono">huge</code> 16×,
+            <code class="font-mono">giant</code> 32×. The color is a name, so
+            the line follows the palette in light and dark.
           </p>
         </div>
       </section>
 
-      <section id="breakpoint" class="my-12">
-        <div class="pb-normal">
+      <section id="breakpoint" class="my-huge">
+        <div class="pb-small">
           <div>
             <span
-              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
               >05 · Multiple</span
             >
           </div>
           <h2
-            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+            class="type-section font-heading px-small tablet:px-medium mt-medium"
           >
             Breakpoint
           </h2>
         </div>
-        <div class="px-normal tablet:px-loose pt-normal">
-          <div class="border p-tight tablet:p-normal desktop:p-loose wide:p-16">
-            <div class="bg-primary text-surface p-normal">
+        <div class="px-small tablet:px-medium pt-small">
+          <div
+            class="border p-tiny tablet:p-small desktop:p-medium wide:p-huge"
+          >
+            <div class="bg-primary text-surface p-small">
               Padding steps up at every breakpoint.
             </div>
           </div>
           <div
-            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(2,1fr)] desktop:css-[grid-template-columns:repeat(3,1fr)] wide:css-[grid-template-columns:repeat(4,1fr)] py-normal"
+            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(2,1fr)] desktop:css-[grid-template-columns:repeat(3,1fr)] wide:css-[grid-template-columns:repeat(4,1fr)] py-small"
           >
-            <div class="border p-normal">1 column</div>
-            <div class="border p-normal">tablet: 2</div>
-            <div class="border p-normal">desktop: 3</div>
-            <div class="border p-normal">wide: 4</div>
+            <div class="border p-small">1 column</div>
+            <div class="border p-small">tablet: 2</div>
+            <div class="border p-small">desktop: 3</div>
+            <div class="border p-small">wide: 4</div>
           </div>
-          <h3 class="type-item font-heading mt-loose">Customize</h3>
+          <h3 class="type-item font-heading mt-medium">Customize</h3>
           <pre
-            class="border p-normal font-mono type-caption"
+            class="border p-small font-mono type-caption mt-small"
           ><code>breakpoint: {
   base: '40rem',               // anchor
   steps: { desktop: '70rem' }, // override a step or add one
 }</code></pre>
-          <p class="type-caption">
+          <p class="type-caption mt-small">
             Steps default to <code class="font-mono">base</code> × 1.25 per
             index: <code class="font-mono">mobile</code>,
             <code class="font-mono">tablet</code>,
             <code class="font-mono">desktop</code>,
             <code class="font-mono">wide</code>. Prefix any class with the step
-            name, e.g. <code class="font-mono">tablet:p-loose</code>.
+            name, e.g. <code class="font-mono">tablet:p-medium</code>.
           </p>
         </div>
       </section>
 
-      <section id="escape" class="my-12">
-        <div class="pb-normal">
+      <section id="escape" class="my-huge">
+        <div class="pb-small">
           <div>
             <span
-              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
               >06 · No relationship</span
             >
           </div>
           <h2
-            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+            class="type-section font-heading px-small tablet:px-medium mt-medium"
           >
             Escape hatch
           </h2>
         </div>
-        <div class="px-normal tablet:px-loose pt-normal">
-          <p>
+        <div class="px-small tablet:px-medium pt-small">
+          <p class="mb-small">
             No relationship, no framework rule. Write the declaration yourself:
           </p>
           <code class="font-mono">css-[attribute:value]</code>
@@ -386,7 +507,7 @@
     </main>
 
     <footer
-      class="border-t px-normal tablet:px-loose py-normal css-[display:flex] css-[align-items:center] css-[justify-content:space-between] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*4)]"
+      class="border-t px-small tablet:px-medium py-small css-[display:flex] css-[align-items:center] css-[justify-content:space-between] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*4)]"
     >
       <small class="type-caption font-mono">HaoVA Style</small>
       <a href="https://github.com/haova/style" class="type-caption font-mono"

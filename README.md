@@ -49,10 +49,9 @@ By module:
 
 ### Spacing
 
-| Relationship | Anchor         | Derived values                  | Parameter                    |
-| ------------ | -------------- | ------------------------------- | ---------------------------- |
-| Multiple     | `spacing.base` | spacing, width, height          | the factor in the class name |
-| Multiple     | `spacing.base` | `tight`, `normal`, `loose` gaps | ratio 2 by index: 1×, 2×, 4× |
+| Relationship | Anchor         | Derived values                                           | Parameter                                  |
+| ------------ | -------------- | -------------------------------------------------------- | ------------------------------------------ |
+| Multiple     | `spacing.base` | `tiny`, `small`, `medium`, `large`, `huge`, `giant` gaps | ratio 2 by index: 1×, 2×, 4×, 8×, 16×, 32× |
 
 ### Breakpoint
 

@@ -46,8 +46,6 @@ const RADIUS_TARGETS: Record<string, string[]> = {
   bl: ['bl'],
 };
 
-const RADIUS_FULL = '9999px';
-
 const TYPE_SIZES: Record<string, number> = {
   caption: 0.875,
   body: 1,
@@ -75,11 +73,22 @@ function getFamilyVariables(families: Record<string, string>): string {
   return variables;
 }
 
+// font-body is the root family itself, so it cannot be a family of its own
 function getFamilyRules(families: Record<string, string>): Rule[] {
-  return Object.keys(families).map((name) => [
-    `font-${name}`,
-    { 'font-family': `var(--typography-family-${name})` },
-  ]);
+  const rules: Rule[] = [
+    ['font-body', { 'font-family': 'var(--typography-family)' }],
+  ];
+
+  for (const name of Object.keys(families)) {
+    if (name === 'body') continue;
+
+    rules.push([
+      `font-${name}`,
+      { 'font-family': `var(--typography-family-${name})` },
+    ]);
+  }
+
+  return rules;
 }
 
 function getColorRules(): Rule[] {
@@ -100,22 +109,27 @@ function getTypeRules(): Rule[] {
   ]);
 }
 
-function getBorderRule(): Rule {
-  const pattern = /^border(?:-([trblxy]))?(?:-(\d+(?:\.\d+)?))?$/;
+function getBorderRules(widths: ResolvedOptions['line']['widths']): Rule[] {
+  const rules: Rule[] = [];
+  const entries = [['', '1'], ...Object.entries(widths)] as [string, string][];
 
-  return [
-    pattern,
-    ([, side = '', times = '1']) => {
+  for (const [side, suffixes] of Object.entries(SIDES)) {
+    for (const [name, times] of entries) {
       const declarations: Record<string, string> = {};
-      const value = `calc(var(--line-width) * ${times}) var(--line-style) var(--line-color)`;
 
-      for (const suffix of SIDES[side]) {
-        declarations[`border${suffix}`] = value;
+      for (const suffix of suffixes) {
+        declarations[`border${suffix}-width`] =
+          `calc(var(--line-width) * ${times})`;
+        declarations[`border${suffix}-style`] = 'var(--line-style)';
       }
 
-      return declarations;
-    },
-  ];
+      const parts = ['border', side, name].filter(Boolean);
+
+      rules.push([parts.join('-'), declarations]);
+    }
+  }
+
+  return rules;
 }
 
 function getBorderColorRules(): Rule[] {
@@ -127,23 +141,6 @@ function getBorderColorRules(): Rule[] {
 
 function getSpacingValue(times: string): string {
   return `calc(var(--spacing-base) * ${times})`;
-}
-
-function getSpacingRule(prefix: string, property: string): Rule {
-  const pattern = new RegExp(`^${prefix}([trblxy]?)-(\\d+(?:\\.\\d+)?)$`);
-
-  return [
-    pattern,
-    ([, side, times]) => {
-      const declarations: Record<string, string> = {};
-
-      for (const suffix of SIDES[side]) {
-        declarations[property + suffix] = getSpacingValue(times);
-      }
-
-      return declarations;
-    },
-  ];
 }
 
 function getGapRules(
@@ -170,27 +167,6 @@ function getGapRules(
   }
 
   return rules;
-}
-
-function getRadiusRule(): Rule {
-  const pattern = /^radius(?:-(t|r|b|l|tl|tr|br|bl))?-(\d+(?:\.\d+)?|full)$/;
-
-  return [
-    pattern,
-    ([, target, value]) => {
-      const radius = value === 'full' ? RADIUS_FULL : getSpacingValue(value);
-
-      if (target === undefined) return { 'border-radius': radius };
-
-      const declarations: Record<string, string> = {};
-
-      for (const corner of RADIUS_TARGETS[target]) {
-        declarations[RADIUS_CORNERS[corner]] = radius;
-      }
-
-      return declarations;
-    },
-  ];
 }
 
 function getRadiusGapRules(gaps: ResolvedOptions['spacing']['gaps']): Rule[] {
@@ -224,10 +200,16 @@ function getRadiusGapRules(gaps: ResolvedOptions['spacing']['gaps']): Rule[] {
   return rules;
 }
 
-function getSizeRule(prefix: string, property: string): Rule {
-  const pattern = new RegExp(`^${prefix}-(\\d+(?:\\.\\d+)?)$`);
-
-  return [pattern, ([, times]) => ({ [property]: getSpacingValue(times) })];
+function getSizeRules(
+  gaps: ResolvedOptions['spacing']['gaps'],
+  prefix: string,
+  property: string,
+  side: 't' | 'l',
+): Rule[] {
+  return Object.entries(gaps).map(([name, gap]) => [
+    `${prefix}-${name}`,
+    { [property]: getSpacingValue(gap[side]) },
+  ]);
 }
 
 function getCustomCssRule(): Rule {
@@ -267,11 +249,12 @@ export function presetHaoVA(options: StyleOptions = {}) {
       {
         getCSS: () =>
           '*,*::before,*::after{box-sizing:border-box}' +
+          `*,*::before,*::after{border-color:var(--color-${line.color})}` +
           'button,input,select,textarea,optgroup{font-family:inherit}' +
           'button,input,select,textarea{border:0;padding:0}' +
-          'h1,h2,h3,h4,h5,h6{margin:0}' +
+          'h1,h2,h3,h4,h5,h6,p,blockquote,figure,pre,dl,dd,ul,ol,hr{margin:0}' +
           'a{color:inherit;text-decoration:none}' +
-          `:root{--line-width:${line.width};--line-style:${line.style};--line-color:${line.color};--spacing-base:${spacing.base};--typography-size:${typography.size};--typography-family:${typography.family};${familyVariables}}` +
+          `:root{--line-width:${line.width};--line-style:${line.style};--spacing-base:${spacing.base};--typography-size:${typography.size};--typography-family:${typography.family};${familyVariables}}` +
           `:root{color-scheme:light dark;${lightVariables}}` +
           `@media (prefers-color-scheme:dark){:root:not([data-theme]){${darkVariables}}}` +
           `:root[data-theme='light']{color-scheme:light;${lightVariables}}` +
@@ -283,16 +266,13 @@ export function presetHaoVA(options: StyleOptions = {}) {
       ...getColorRules(),
       ...getFamilyRules(typography.families),
       ...getTypeRules(),
-      getBorderRule(),
+      ...getBorderRules(line.widths),
       ...getBorderColorRules(),
       ...getRadiusGapRules(spacing.gaps),
-      getRadiusRule(), // @todo: need a way to detach it from spacing.
-      ...getGapRules(spacing.gaps, 'p', 'padding'), // @todo: add semantic tokens
-      ...getGapRules(spacing.gaps, 'm', 'margin'), // @todo: add semantic tokens
-      getSpacingRule('p', 'padding'), // @todo: add semantic tokens
-      getSpacingRule('m', 'margin'), // @todo: add semantic tokens
-      getSizeRule('w', 'width'), // @todo: add semantic tokens
-      getSizeRule('h', 'height'), // @todo: add semantic tokens
+      ...getGapRules(spacing.gaps, 'p', 'padding'),
+      ...getGapRules(spacing.gaps, 'm', 'margin'),
+      ...getSizeRules(spacing.gaps, 'w', 'width', 'l'),
+      ...getSizeRules(spacing.gaps, 'h', 'height', 't'),
       getCustomCssRule(),
     ],
     variants: getBreakpointVariants(breakpoint.steps),
