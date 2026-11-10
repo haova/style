@@ -56,6 +56,7 @@
           <a href="#spacing" class="text-primary pr-small">Spacing</a>
           <a href="#line" class="text-primary pr-small">Line</a>
           <a href="#breakpoint" class="text-primary pr-small">Breakpoint</a>
+          <a href="#prose" class="text-primary pr-small">Prose</a>
         </nav>
       </div>
 
@@ -483,12 +484,82 @@
         </div>
       </section>
 
+      <section id="prose" class="my-huge">
+        <div class="pb-small">
+          <div>
+            <span
+              class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
+              >06 · Multiple</span
+            >
+          </div>
+          <h2
+            class="type-section font-heading px-small tablet:px-medium mt-medium"
+          >
+            Prose
+          </h2>
+        </div>
+        <div class="px-small tablet:px-medium pt-small">
+          <article class="prose">
+            <h1>Heading one</h1>
+            <p>
+              A paragraph with a <a href="#prose">link</a>, some
+              <strong>strong</strong> and <em>emphasized</em> text, and inline
+              <code>code</code>.
+            </p>
+            <h2>Heading two</h2>
+            <ul>
+              <li>An item</li>
+              <li>
+                Another item
+                <ul>
+                  <li>A nested item</li>
+                </ul>
+              </li>
+            </ul>
+            <ol>
+              <li>First</li>
+              <li>Second</li>
+            </ol>
+            <h3>Heading three</h3>
+            <blockquote>A quote has a line on its left side.</blockquote>
+            <pre><code>.prose { }</code></pre>
+            <hr />
+            <table>
+              <thead>
+                <tr>
+                  <th>Tag</th>
+                  <th>Style</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>h1</td>
+                  <td>type-title</td>
+                </tr>
+                <tr>
+                  <td>blockquote</td>
+                  <td>border-l-medium</td>
+                </tr>
+              </tbody>
+            </table>
+          </article>
+          <p class="type-caption mt-medium">
+            <code class="font-mono">prose</code> styles the tags inside it. It
+            has no option of its own: it follows
+            <code class="font-mono">spacing.gaps</code>,
+            <code class="font-mono">line.widths</code> and
+            <code class="font-mono">typography</code>, and a utility on a tag
+            inside overrides it.
+          </p>
+        </div>
+      </section>
+
       <section id="escape" class="my-huge">
         <div class="pb-small">
           <div>
             <span
               class="bg-primary text-surface px-small tablet:px-medium py-tiny type-caption font-mono"
-              >06 · No relationship</span
+              >07 · No relationship</span
             >
           </div>
           <h2

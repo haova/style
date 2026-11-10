@@ -3,9 +3,21 @@
 import { createStyle } from './core';
 import type { StyleOptions, ResolvedOptions } from './config';
 
+type Declarations = Record<string | symbol, unknown>;
+
+type RuleContext = {
+  symbols: { body: symbol; selector: symbol; sort: symbol };
+};
+
 type Rule =
   | [string, Record<string, string>]
-  | [RegExp, (match: RegExpMatchArray) => Record<string, string> | undefined];
+  | [
+      RegExp,
+      (
+        match: RegExpMatchArray,
+        context: RuleContext,
+      ) => Declarations | Declarations[] | undefined,
+    ];
 
 type Palette = ResolvedOptions['color']['palettes'][string];
 
@@ -212,6 +224,81 @@ function getSizeRules(
   ]);
 }
 
+function getProseRule(
+  gaps: ResolvedOptions['spacing']['gaps'],
+  widths: ResolvedOptions['line']['widths'],
+): Rule {
+  const space = (name: string) => getSpacingValue(gaps[name].t);
+  const line = (name: string) => `calc(var(--line-width) * ${widths[name]})`;
+  const size = (role: string) =>
+    `calc(var(--typography-size) * ${TYPE_SIZES[role]})`;
+  const heading = (role: string) =>
+    `font-family:var(--typography-family-heading);font-size:${size(role)};line-height:1.25;`;
+  const bold = 'font-weight:700;';
+
+  // tags inside .prose; :where keeps them as weak as the utilities
+  const tags: [string, string][] = [
+    ['h1', heading('title')],
+    ['h2', heading('section')],
+    ['h3', heading('item')],
+    ['h4,h5,h6', `font-size:${size('body')};${bold}`],
+    ['h1,h2,h3,h4,h5,h6', `margin-top:${space('large')};`],
+    [
+      'p,ul,ol,dl,blockquote,pre,figure,table',
+      `margin-top:${space('medium')};`,
+    ],
+    [
+      'a',
+      `color:var(--color-primary);text-decoration:underline;text-underline-offset:${space('tiny')};`,
+    ],
+    ['strong,b,th,dt', bold],
+    ['em,i', 'font-style:italic;'],
+    ['ul', `list-style:disc;padding-left:${space('large')};`],
+    ['ol', `list-style:decimal;padding-left:${space('large')};`],
+    ['dd', `margin-left:${space('large')};`],
+    ['li', `margin-top:${space('small')};`],
+    ['li :where(ul,ol)', `margin-top:${space('small')};`],
+    [
+      'blockquote',
+      `border-left-width:${line('medium')};border-left-style:var(--line-style);padding-left:${space('medium')};`,
+    ],
+    [
+      'code,pre',
+      `font-family:var(--typography-family-mono);font-size:${size('caption')};`,
+    ],
+    [
+      'pre',
+      `border-width:${line('tiny')};border-style:var(--line-style);padding:${space('small')};overflow-x:auto;`,
+    ],
+    ['pre :where(code)', 'font-size:inherit;'],
+    [
+      'hr',
+      `border-top-width:${line('tiny')};border-top-style:var(--line-style);margin-top:${space('large')};margin-bottom:${space('large')};`,
+    ],
+    ['img,video', 'max-width:100%;height:auto;'],
+    [
+      'figcaption',
+      `font-size:${size('caption')};margin-top:${space('small')};`,
+    ],
+    ['table', 'width:100%;border-collapse:collapse;'],
+    [
+      'th,td',
+      `padding:${space('small')};border-bottom-width:${line('tiny')};border-bottom-style:var(--line-style);text-align:left;`,
+    ],
+    [':first-child', 'margin-top:0;'],
+  ];
+
+  return [
+    /^prose$/,
+    (_, { symbols }) =>
+      tags.map(([tag, declarations], index) => ({
+        [symbols.sort]: index,
+        [symbols.body]: declarations,
+        [symbols.selector]: (selector: string) => `${selector} :where(${tag})`,
+      })),
+  ];
+}
+
 function getCustomCssRule(): Rule {
   const pattern = /^css-\[(-{0,2}[a-zA-Z][\w-]*):(.+)\]$/;
 
@@ -251,7 +338,8 @@ export function presetHaoVA(options: StyleOptions = {}) {
           '*,*::before,*::after{box-sizing:border-box}' +
           `*,*::before,*::after{border-color:var(--color-${line.color})}` +
           'button,input,select,textarea,optgroup{font-family:inherit}' +
-          'button,input,select,textarea{border:0;padding:0}' +
+          'button,input,select,textarea{border-width:0;padding:0}' +
+          'hr{height:0;border-width:0}' +
           'h1,h2,h3,h4,h5,h6,p,blockquote,figure,pre,dl,dd,ul,ol,hr{margin:0}' +
           'a{color:inherit;text-decoration:none}' +
           `:root{--line-width:${line.width};--line-style:${line.style};--spacing-base:${spacing.base};--typography-size:${typography.size};--typography-family:${typography.family};${familyVariables}}` +
@@ -263,6 +351,7 @@ export function presetHaoVA(options: StyleOptions = {}) {
       },
     ],
     rules: [
+      getProseRule(spacing.gaps, line.widths),
       ...getColorRules(),
       ...getFamilyRules(typography.families),
       ...getTypeRules(),

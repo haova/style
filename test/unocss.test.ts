@@ -23,7 +23,10 @@ describe('presetHaoVA preflights', () => {
     expect(css).toContain('--spacing-base:0.25rem');
     expect(css).toContain('--color-primary:');
     expect(css).toContain('*,*::before,*::after{box-sizing:border-box}');
-    expect(css).toContain('button,input,select,textarea{border:0;padding:0}');
+    expect(css).toContain(
+      'button,input,select,textarea{border-width:0;padding:0}',
+    );
+    expect(css).toContain('hr{height:0;border-width:0}');
     expect(css).toContain(
       'h1,h2,h3,h4,h5,h6,p,blockquote,figure,pre,dl,dd,ul,ol,hr{margin:0}',
     );
@@ -173,6 +176,65 @@ describe('presetHaoVA font-body', () => {
 
     expect(css.match(/font-family/g)).toHaveLength(1);
     expect(css).toContain('font-family:var(--typography-family)');
+  });
+});
+
+describe('presetHaoVA prose', () => {
+  it('styles the tags inside', async () => {
+    const { css } = await generate('prose');
+
+    expect(css).toContain(
+      '.prose :where(h1){font-family:var(--typography-family-heading);font-size:calc(var(--typography-size) * 2)',
+    );
+    expect(css).toContain('.prose :where(a){color:var(--color-primary)');
+    expect(css).toContain(
+      '.prose :where(blockquote){border-left-width:calc(var(--line-width) * 4);border-left-style:var(--line-style)',
+    );
+    expect(css).toContain(
+      '.prose :where(code,pre){font-family:var(--typography-family-mono)',
+    );
+  });
+
+  it('leaves the border color to the preflight', async () => {
+    const { css } = await generate('prose');
+
+    expect(css).not.toMatch(/[;{]border(?:-(?:top|right|bottom|left))?:/);
+    expect(css).not.toContain('border-color');
+  });
+
+  it('follows the spacing and line options', async () => {
+    const { css } = await generate('prose', {
+      spacing: { gaps: { medium: { y: 6 } } },
+      line: { widths: { medium: 3 } },
+    });
+
+    expect(css).toContain(
+      '.prose :where(p,ul,ol,dl,blockquote,pre,figure,table){margin-top:calc(var(--spacing-base) * 6)',
+    );
+    expect(css).toContain('border-left-width:calc(var(--line-width) * 3)');
+  });
+
+  it('comes before the utilities so they can override it', async () => {
+    const { css } = await generate('p-small prose');
+
+    expect(css.indexOf('.prose :where(h1)')).toBeLessThan(
+      css.indexOf('.p-small'),
+    );
+  });
+
+  it('resets the first child last so it wins', async () => {
+    const { css } = await generate('prose');
+
+    expect(css.indexOf('.prose :where(h1,h2,h3,h4,h5,h6)')).toBeLessThan(
+      css.indexOf('.prose :where(:first-child)'),
+    );
+  });
+
+  it('works with a breakpoint', async () => {
+    const { css } = await generate('tablet:prose');
+
+    expect(css).toContain('@media (min-width:50rem)');
+    expect(css).toContain('.tablet\\:prose :where(h1)');
   });
 });
 

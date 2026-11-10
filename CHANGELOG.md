@@ -14,3 +14,4 @@
 - Removed `p-N`, `m-N`, `radius-N` and `border-N`. Spacing and line widths are used by name.
 - Removed `radius-full`, because it has no relationship to an anchor. Use `radius-<name>` or `css-[border-radius:9999px]`.
 - Removed the `--line-color` variable.
+- Added `prose`, which styles the tags inside it (headings, paragraphs, links, lists, quotes, code, tables, …) from the same anchors as the utilities. Utilities override it.
