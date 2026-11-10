@@ -21,7 +21,12 @@
   "files": [
     "dist"
   ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "public"
+  },
   "scripts": {
+    "prepublishOnly": "npm run typecheck && npm test && npm run build",
     "dev": "vite playground --open",
     "format": "prettier . --write",
     "typecheck": "tsc --noEmit",

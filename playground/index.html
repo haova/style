@@ -13,189 +13,371 @@
     />
   </head>
   <body>
-    <header class="border-b px-loose py-normal">
-      <div
-        class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto] css-[display:flex] css-[justify-content:space-between] css-[align-items:center] css-[flex-wrap:wrap]"
+    <header class="border-b p-normal">
+      <strong class="type-item font-heading">HaoVA Style</strong>
+      <button
+        id="toggle-scheme"
+        class="bg-primary text-surface px-normal py-tight m-tight"
       >
-        <strong class="type-item font-heading">Ember Roasters</strong>
-        <nav>
-          <a
-            href="#beans"
-            class="text-primary px-tight css-[text-decoration:none]"
-            >Beans</a
-          >
-          <a
-            href="#story"
-            class="text-primary px-tight css-[text-decoration:none]"
-            >Story</a
-          >
-          <a
-            href="#subscribe"
-            class="text-primary px-tight css-[text-decoration:none]"
-            >Subscribe</a
-          >
-          <button
-            id="toggle-scheme"
-            class="bg-primary text-surface px-normal py-tight m-tight radius-full"
-          >
-            Toggle scheme
-          </button>
-          <button
-            id="default-scheme"
-            class="bg-content text-surface px-normal py-tight m-tight radius-full"
-          >
-            Default
-          </button>
-        </nav>
-      </div>
+        Toggle scheme
+      </button>
+      <button
+        id="default-scheme"
+        class="bg-content text-surface px-normal py-tight m-tight"
+      >
+        Default
+      </button>
     </header>
 
     <main>
-      <section class="p-normal tablet:p-loose">
-        <div class="bg-primary text-surface radius-loose p-loose desktop:p-16">
-          <div
-            class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
-          >
-            <p class="type-caption font-mono">Small-batch specialty coffee</p>
-            <h1 class="type-title desktop:type-display font-heading">
-              Roasted this week. At your door by Friday.
-            </h1>
-            <p class="type-item">
-              We buy straight from twelve family farms and roast every order in
-              our workshop, in batches of no more than fifteen kilos.
-            </p>
-            <a
-              href="#beans"
-              class="bg-surface text-primary px-loose py-normal m-tight radius-full css-[display:inline-block] css-[text-decoration:none]"
-              >Shop beans</a
+      <div class="px-normal tablet:px-loose my-12">
+        <p class="type-caption font-mono text-primary">
+          A configurable styling framework
+        </p>
+        <h1 class="type-title desktop:type-display font-heading">
+          Anchor in. Relationships out.
+        </h1>
+        <p class="type-item">
+          Everything below is styled by this framework, from one handful of
+          anchors.
+        </p>
+        <nav>
+          <a href="#color" class="text-primary pr-normal">Color</a>
+          <a href="#type" class="text-primary pr-normal">Typography</a>
+          <a href="#spacing" class="text-primary pr-normal">Spacing</a>
+          <a href="#line" class="text-primary pr-normal">Line</a>
+          <a href="#breakpoint" class="text-primary pr-normal">Breakpoint</a>
+        </nav>
+      </div>
+
+      <section id="color" class="my-12">
+        <div class="pb-normal">
+          <div>
+            <span
+              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              >01 · Interpolation · Offset · Inheritance</span
             >
-            <a
-              href="#story"
-              class="border-2 px-loose py-normal m-tight radius-full css-[display:inline-block] css-[text-decoration:none]"
-              >Our story</a
+          </div>
+          <h2
+            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+          >
+            Color
+          </h2>
+        </div>
+        <div class="px-normal tablet:px-loose pt-normal">
+          <div
+            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(3,1fr)]"
+          >
+            <div class="bg-primary text-surface p-loose">
+              <div class="type-item font-heading">primary</div>
+              <div class="type-caption font-mono">bg-primary</div>
+              <div class="type-caption font-mono">text-surface</div>
+            </div>
+            <div
+              class="bg-surface text-content p-loose css-[box-shadow:inset_0_0_0_1px_var(--line-color)]"
+            >
+              <div class="type-item font-heading">surface</div>
+              <div class="type-caption font-mono">bg-surface</div>
+              <div class="type-caption font-mono">text-content</div>
+            </div>
+            <div class="bg-content text-surface p-loose">
+              <div class="type-item font-heading">content</div>
+              <div class="type-caption font-mono">bg-content</div>
+              <div class="type-caption font-mono">text-surface</div>
+            </div>
+          </div>
+          <h3 class="type-item font-heading mt-loose">Customize</h3>
+          <pre
+            class="border p-normal font-mono type-caption"
+          ><code>presetHaoVA({
+  color: {
+    primary: '#4ab9b2',
+    surface: '#fff',   // anchor
+    content: '#111',   // anchor
+    palettes: {
+      dark: { surface: '#0b1020' },
+    },
+  },
+})</code></pre>
+          <p class="type-caption">
+            <code class="font-mono">surface</code> and
+            <code class="font-mono">content</code> are anchors; light and dark
+            follow from them (flip the scheme from the top bar). Anything you
+            leave out is inherited, per
+            <code class="font-mono">color.fallback</code>
+            (<code class="font-mono">'interpolate'</code> or
+            <code class="font-mono">'default'</code>). Changing
+            <code class="font-mono">surface</code> also moves
+            <code class="font-mono">primary</code>; set it inside a palette to
+            pin it.
+          </p>
+        </div>
+      </section>
+
+      <section id="type" class="my-12">
+        <div class="pb-normal">
+          <div>
+            <span
+              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              >02 · Multiple · Inheritance</span
             >
           </div>
-        </div>
-      </section>
-
-      <section class="p-normal tablet:p-loose">
-        <div
-          class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
-        >
-          <div
-            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] tablet:css-[grid-template-columns:repeat(3,1fr)]"
+          <h2
+            class="type-section font-heading px-normal tablet:px-loose mt-loose"
           >
-            <article class="border p-loose radius-loose">
-              <h3 class="type-item font-heading">Fresh, always</h3>
-              <p>Every bag is roasted to order and shipped within 48 hours.</p>
-            </article>
-            <article class="border p-loose radius-loose">
-              <h3 class="type-item font-heading">Direct trade</h3>
-              <p>We pay farmers 30% above fair-trade prices, every harvest.</p>
-            </article>
-            <article class="border p-loose radius-loose">
-              <h3 class="type-item font-heading">Free shipping</h3>
-              <p>On every order over $30, anywhere in the country.</p>
-            </article>
-          </div>
+            Typography
+          </h2>
         </div>
-      </section>
-
-      <section id="beans" class="p-normal tablet:p-loose">
-        <div
-          class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
-        >
-          <h2 class="type-section font-heading">This month's beans</h2>
-          <p>Four coffees, all available as whole bean or ground.</p>
-          <div
-            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] tablet:css-[grid-template-columns:repeat(2,1fr)] wide:css-[grid-template-columns:repeat(4,1fr)]"
-          >
-            <article class="border p-loose radius-loose">
-              <p class="type-caption font-mono">Ethiopia · Light roast</p>
-              <h3 class="type-item font-heading">Yirgacheffe</h3>
-              <p>Jasmine, peach and bergamot. Bright and tea-like.</p>
-              <p class="type-section font-heading">$18</p>
-            </article>
-            <article class="border p-loose radius-loose">
-              <p class="type-caption font-mono">Colombia · Medium roast</p>
-              <h3 class="type-item font-heading">Huila</h3>
-              <p>Red apple, caramel and milk chocolate. Round and sweet.</p>
-              <p class="type-section font-heading">$16</p>
-            </article>
-            <article class="border p-loose radius-loose">
-              <p class="type-caption font-mono">Brazil · Medium-dark</p>
-              <h3 class="type-item font-heading">Cerrado</h3>
-              <p>Hazelnut, cocoa and a long, creamy finish.</p>
-              <p class="type-section font-heading">$15</p>
-            </article>
-            <article class="border p-loose radius-loose">
-              <p class="type-caption font-mono">Blend · Dark roast</p>
-              <h3 class="type-item font-heading">Night Shift</h3>
-              <p>Dark chocolate and toasted almond. Built for milk.</p>
-              <p class="type-section font-heading">$14</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="story" class="p-normal tablet:p-loose">
-        <div class="bg-content text-surface radius-loose p-loose desktop:p-16">
-          <div
-            class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
-          >
-            <p class="type-caption font-mono">Why we roast</p>
-            <p class="type-section font-heading">
-              "The best cup I have had outside of a tasting room. The Huila is
-              now our house coffee."
-            </p>
-            <p class="type-caption">— Linh, owner of a neighbourhood bakery</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="subscribe" class="p-normal tablet:p-loose">
-        <div
-          class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto]"
-        >
-          <div class="border radius-loose p-loose">
-            <h2 class="type-section font-heading">Never run out</h2>
-            <p>Pick a coffee and a schedule. Pause or cancel any time.</p>
-            <form
-              class="css-[display:flex] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*2)]"
+        <div class="px-normal tablet:px-loose pt-normal">
+          <div class="py-tight">
+            <code class="font-mono type-caption text-primary"
+              >type-display</code
             >
-              <input
-                type="email"
-                placeholder="you@example.com"
-                aria-label="Email"
-                class="border p-normal radius-full css-[flex:1_1_calc(var(--spacing-base)*48)]"
-              />
-              <select aria-label="Schedule" class="border p-normal radius-full">
-                <option>Every week</option>
-                <option>Every two weeks</option>
-                <option>Every month</option>
-              </select>
-              <button
-                type="submit"
-                class="bg-primary text-surface px-loose py-normal radius-full"
-              >
-                Subscribe
-              </button>
-            </form>
+            <div class="type-display">The quick brown fox</div>
           </div>
+          <div class="py-tight">
+            <code class="font-mono type-caption text-primary">type-title</code>
+            <div class="type-title">The quick brown fox</div>
+          </div>
+          <div class="py-tight">
+            <code class="font-mono type-caption text-primary"
+              >type-section</code
+            >
+            <div class="type-section">The quick brown fox</div>
+          </div>
+          <div class="py-tight">
+            <code class="font-mono type-caption text-primary">type-item</code>
+            <div class="type-item">The quick brown fox</div>
+          </div>
+          <div class="py-tight">
+            <code class="font-mono type-caption text-primary">type-body</code>
+            <div class="type-body">The quick brown fox</div>
+          </div>
+          <div class="py-tight">
+            <code class="font-mono type-caption text-primary"
+              >type-caption</code
+            >
+            <div class="type-caption">The quick brown fox</div>
+          </div>
+          <div class="py-normal">
+            <p class="type-item">Inter — the default family</p>
+            <p class="type-item font-heading">Fraunces — the heading family</p>
+            <p class="type-item font-mono">JetBrains Mono — the mono family</p>
+          </div>
+          <h3 class="type-item font-heading mt-loose">Customize</h3>
+          <pre
+            class="border p-normal font-mono type-caption"
+          ><code>typography: {
+  size: '1rem',                      // anchor
+  family: ['Inter', 'sans-serif'],
+  families: {
+    heading: ['Fraunces', 'serif'],  // inherits family if omitted
+    mono: ['JetBrains Mono', 'monospace'],
+  },
+}</code></pre>
+          <p class="type-caption">
+            <code class="font-mono">size</code> is the anchor; every
+            <code class="font-mono">type-*</code> is a fixed factor of it. Each
+            name in <code class="font-mono">families</code> becomes a
+            <code class="font-mono">font-*</code> class, and
+            <code class="font-mono">heading</code> falls back to
+            <code class="font-mono">family</code>.
+          </p>
+        </div>
+      </section>
+
+      <section id="spacing" class="my-12">
+        <div class="pb-normal">
+          <div>
+            <span
+              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              >03 · Multiple</span
+            >
+          </div>
+          <h2
+            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+          >
+            Spacing
+          </h2>
+        </div>
+        <div class="px-normal tablet:px-loose pt-normal">
+          <div class="py-tight">
+            <code class="font-mono type-caption">w-4</code>
+            <div class="bg-primary h-4 w-4"></div>
+          </div>
+          <div class="py-tight">
+            <code class="font-mono type-caption">w-8</code>
+            <div class="bg-primary h-4 w-8"></div>
+          </div>
+          <div class="py-tight">
+            <code class="font-mono type-caption">w-16</code>
+            <div class="bg-primary h-4 w-16"></div>
+          </div>
+          <div class="py-tight">
+            <code class="font-mono type-caption">w-32</code>
+            <div class="bg-primary h-4 w-32"></div>
+          </div>
+          <div class="py-tight">
+            <code class="font-mono type-caption">w-64</code>
+            <div class="bg-primary h-4 w-64"></div>
+          </div>
+          <div
+            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(3,1fr)] py-normal"
+          >
+            <div class="bg-primary text-surface p-tight font-mono type-caption">
+              p-tight
+            </div>
+            <div
+              class="bg-primary text-surface p-normal font-mono type-caption"
+            >
+              p-normal
+            </div>
+            <div class="bg-primary text-surface p-loose font-mono type-caption">
+              p-loose
+            </div>
+          </div>
+          <h3 class="type-item font-heading mt-loose">Customize</h3>
+          <pre class="border p-normal font-mono type-caption"><code>spacing: {
+  base: '0.25rem',          // anchor
+  gaps: {
+    normal: { x: 2, y: 2 }, // multiples of base
+    huge: 8,                // adds p-huge, m-huge, radius-huge
+  },
+}</code></pre>
+          <p class="type-caption">
+            Every size is a multiple of <code class="font-mono">base</code>.
+            <code class="font-mono">tight</code>,
+            <code class="font-mono">normal</code> and
+            <code class="font-mono">loose</code> default to 1×, 2×, 4×. A gap
+            takes a number, <code class="font-mono">{ x, y }</code> or
+            <code class="font-mono">{ t, r, b, l }</code>.
+          </p>
+        </div>
+      </section>
+
+      <section id="line" class="my-12">
+        <div class="pb-normal">
+          <div>
+            <span
+              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              >04 · Multiple</span
+            >
+          </div>
+          <h2
+            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+          >
+            Line and radius
+          </h2>
+        </div>
+        <div class="px-normal tablet:px-loose pt-normal">
+          <div
+            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(2,1fr)] desktop:css-[grid-template-columns:repeat(3,1fr)]"
+          >
+            <div class="border radius-tight p-normal font-mono type-caption">
+              border radius-tight
+            </div>
+            <div class="border-2 radius-normal p-normal font-mono type-caption">
+              border-2 radius-normal
+            </div>
+            <div class="border-4 radius-loose p-normal font-mono type-caption">
+              border-4 radius-loose
+            </div>
+            <div
+              class="border border-primary radius-full p-normal font-mono type-caption"
+            >
+              border border-primary radius-full
+            </div>
+            <div class="border-b p-normal font-mono type-caption">border-b</div>
+            <div class="border radius-t-loose p-normal font-mono type-caption">
+              border radius-t-loose
+            </div>
+          </div>
+          <h3 class="type-item font-heading mt-loose">Customize</h3>
+          <pre class="border p-normal font-mono type-caption"><code>line: {
+  width: '1px',
+  style: 'solid',           // 'dashed' | 'dotted'
+  color: '$color.primary',  // reference; defaults to content
+}</code></pre>
+          <p class="type-caption">
+            <code class="font-mono">border-N</code> multiplies
+            <code class="font-mono">width</code>. A value starting with
+            <code class="font-mono">$</code> reads another option, so the line
+            follows the palette.
+          </p>
+        </div>
+      </section>
+
+      <section id="breakpoint" class="my-12">
+        <div class="pb-normal">
+          <div>
+            <span
+              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              >05 · Multiple</span
+            >
+          </div>
+          <h2
+            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+          >
+            Breakpoint
+          </h2>
+        </div>
+        <div class="px-normal tablet:px-loose pt-normal">
+          <div class="border p-tight tablet:p-normal desktop:p-loose wide:p-16">
+            <div class="bg-primary text-surface p-normal">
+              Padding steps up at every breakpoint.
+            </div>
+          </div>
+          <div
+            class="css-[display:grid] css-[gap:calc(var(--spacing-base)*4)] css-[grid-template-columns:repeat(1,1fr)] tablet:css-[grid-template-columns:repeat(2,1fr)] desktop:css-[grid-template-columns:repeat(3,1fr)] wide:css-[grid-template-columns:repeat(4,1fr)] py-normal"
+          >
+            <div class="border p-normal">1 column</div>
+            <div class="border p-normal">tablet: 2</div>
+            <div class="border p-normal">desktop: 3</div>
+            <div class="border p-normal">wide: 4</div>
+          </div>
+          <h3 class="type-item font-heading mt-loose">Customize</h3>
+          <pre
+            class="border p-normal font-mono type-caption"
+          ><code>breakpoint: {
+  base: '40rem',               // anchor
+  steps: { desktop: '70rem' }, // override a step or add one
+}</code></pre>
+          <p class="type-caption">
+            Steps default to <code class="font-mono">base</code> × 1.25 per
+            index: <code class="font-mono">mobile</code>,
+            <code class="font-mono">tablet</code>,
+            <code class="font-mono">desktop</code>,
+            <code class="font-mono">wide</code>. Prefix any class with the step
+            name, e.g. <code class="font-mono">tablet:p-loose</code>.
+          </p>
+        </div>
+      </section>
+
+      <section id="escape" class="my-12">
+        <div class="pb-normal">
+          <div>
+            <span
+              class="bg-primary text-surface px-normal tablet:px-loose py-tight type-caption font-mono"
+              >06 · No relationship</span
+            >
+          </div>
+          <h2
+            class="type-section font-heading px-normal tablet:px-loose mt-loose"
+          >
+            Escape hatch
+          </h2>
+        </div>
+        <div class="px-normal tablet:px-loose pt-normal">
+          <p>
+            No relationship, no framework rule. Write the declaration yourself:
+          </p>
+          <code class="font-mono">css-[attribute:value]</code>
         </div>
       </section>
     </main>
 
-    <footer class="border-t p-loose">
-      <div
-        class="css-[max-width:calc(var(--spacing-base)*240)] css-[margin:0_auto] css-[display:flex] css-[justify-content:space-between] css-[flex-wrap:wrap] css-[gap:calc(var(--spacing-base)*4)]"
-      >
-        <div>
-          <strong class="font-heading">Ember Roasters</strong>
-          <p class="type-caption">12 Mill Lane · Open Tue–Sun, 8am–4pm</p>
-        </div>
-        <small class="type-caption font-mono">© 2026 Ember Roasters</small>
-      </div>
+    <footer class="border-t p-normal">
+      <small class="type-caption font-mono">HaoVA Style</small>
     </footer>
 
     <script type="module" src="./main.ts"></script>
